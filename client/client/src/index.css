@@ -1,0 +1,11 @@
+body {
+  background-image: url("./assets/BackGround.jpg");
+  background-size: cover;  
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  font-family: 'Raleway', sans-serif;
+}
+
