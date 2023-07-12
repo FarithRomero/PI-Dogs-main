@@ -1,21 +1,60 @@
 .btn {
-    background-color: #40128B;
-    color: #fff;
-    font-family: 'Raleway';
-    height: 1.6rem;
-    width: 7rem;
-    border: none;
-    border-radius: 15%;
-    padding: 3px 4px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #00000081;
+  color: #DAFFFB;
+  font-family: 'Raleway';
+  height: 1.6rem;
+  width: 7rem;
+  text-align: center;
+  display: flex;
+  border: none;
+  border-color: #1e0d7e69;
+  padding: 3px 25px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: .5s, color .10s;
+  -webkit-transition: .5s, color .10s;
+  -moz-transition: .5s, color .10s;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   }
-  
+
   .btn:hover {
-    background-color: #9336B4;
+    background-color: #001a2c;
+    color: #fff;
+    box-shadow: 0 8px 8px 0 #000000,0 8px 8px 0 #000000;
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    -moz-transform:translate(0px,5px);
   }
-  
+               
+  /* .Card {
+    position: relative;
+    top: 10rem;
+    left: 7rem;
+    display: flex;
+    flex-direction: column;
+    width: 17rem;
+    height: 15rem;
+    text-align: center;
+    font-size: 64%;
+    font-family: 'Raleway';
+    padding: 5px 5px 5px 5px;
+    background-color: #00000081;
+    border: 1px solid #dafffb2a;
+    border-radius: 4px;
+    box-shadow: 0 10px 25px 5px #00040172;
+    color: #DAFFFB;
+    text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.894);
+    cursor: pointer;
+    line-height: 1rem;
+    transition: transform 0.3s ease-in-out;
+}
+    
+.Card:hover {
+    transform: translateY(-20px);
+}
+       */

@@ -3,9 +3,10 @@ import './searchBar.styles.css';
 function SearchBar() {
   return (
     <div>
-        <p>
-            Este es el SearchBar 
-        </p>
+      <form>
+        <input placeholder='Buscar perro'/>
+        <button>Buscar</button>
+      </form>
     </div>
   );
 }

@@ -2,12 +2,23 @@ import './navigationBar.styles.css';
 
 function NavigationBar() {
   return (
-    <div>
-        <p>
-            Este es el NavigationBar page
-        </p>
+    <div className='nav'>
+      <ul>
+        <li>
+          Inicio
+        </li>
+        <li>
+          Detalle
+        </li>
+        <li>
+          Crear raza
+        </li>
+        <li>
+          Home
+        </li>
+      </ul>
     </div>
   );
-}
+};
 
 export default NavigationBar;

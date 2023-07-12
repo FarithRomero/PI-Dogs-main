@@ -1,0 +1,21 @@
+.btn{
+    position: absolute;
+    align-content: space-around;
+    top: 25rem;
+    left: 36rem;
+  }
+
+.title{
+    color: #FCE9F1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.541);
+    font-family: 'Intim';
+    transform-origin: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 5rem;
+    position: relative;
+    margin: 9rem;
+  }
+  
+

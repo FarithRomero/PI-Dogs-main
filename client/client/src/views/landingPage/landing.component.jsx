@@ -4,10 +4,10 @@ import ButtonCustomized from '../../components/buttons/button.component.jsx';
 function LandingPage() {
   return (
     <div>
-        <p>
-            Este es el Landing page
+        <p className='title'>
+           Dog & Dogs
         </p>
-        <ButtonCustomized/>
+        <ButtonCustomized className='btn'/>
     </div>
   );
 }
