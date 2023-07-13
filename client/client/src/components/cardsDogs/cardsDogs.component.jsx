@@ -9,13 +9,13 @@ function CardsDogs() {
   const { breeds } = useSelector(state => state)
   
   useEffect(()=>{
-    dispatch(getAllBreeds())
-  }, [])
+    dispatch(getAllBreeds())//AQUÍ ESTÁ PENDIENTE EL DISMOUNT
+  }, [dispatch])
     
   return (
     <div className='container'>
       {
-        breeds.map(breed => {
+        breeds?.map(breed => {
           return <CardDog 
                   key={breed.id} 
                   Id={breed.id} 

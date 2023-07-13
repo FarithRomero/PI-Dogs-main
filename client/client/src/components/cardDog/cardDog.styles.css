@@ -9,12 +9,12 @@
     font-size: 36%;
     font-family: 'Raleway';
     padding: 4px 5px 6px 5px;
-    background-color: #545b7770;
-    border: 1px solid #dafffb2a;
+    background-color: #f2d8d852;
+    border: 1px solid #37425959;
     border-radius: 4px;
-    box-shadow: 0 10px 25px 5px #00040172;
-    color: #DAFFFB;
-    text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.894);
+    box-shadow: 0 5px 20px 1px #3742599f;
+    color: #545B77;
+    /* text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.894); */
     cursor: pointer;
     line-height: 0rem;
     transition: transform 0.3s ease-in-out;
@@ -26,14 +26,14 @@
 }
 
 .link{
-    color:#F2D8D8;
+    color:#374259;
     transition: transform 0.4s ease-in-out;
     text-decoration: none;
     
 }
 
 .link:hover {
-    color:#cecdc0e9;
+    color:#212735;
     transform: scale(1.2);
 }
     

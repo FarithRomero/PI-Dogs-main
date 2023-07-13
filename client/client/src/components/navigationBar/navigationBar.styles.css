@@ -1,5 +1,5 @@
 .nav{
-    width: 158px;
+    width: 94px;
     color: #DAFFFB;
     background-color: #374259;
     display: flex;
@@ -11,10 +11,10 @@
     border: solid 1px #ffffff0d;
     background-color: #374259;
     margin-right: 1rem;
-    width: 9.9rem;
-    height: 5rem;
+    width: 5.9rem;
+    height: 2rem;
     font-family: 'Raleway';
-    font-size: 100%;
+    font-size: 72%;
     color: white;
     border-radius: 1%;
     cursor: pointer;

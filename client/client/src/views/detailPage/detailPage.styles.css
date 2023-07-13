@@ -1,0 +1,40 @@
+.dogPhoto{
+    position: absolute;
+    width: 33%;
+    height: 65%;
+    top: 7.1em;
+    left: 18rem;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #F2D8D8;
+    box-shadow: 0 0 10px #F1C376;
+}
+
+.textDescription{
+    line-height: 0.1px;
+    position: absolute;
+    top: 24rem;
+    left: 47rem;
+    display: flex;
+    width: 36.5rem;
+    height: 11rem;
+    text-align: left;
+    font-size: 56%;
+    font-family: 'Raleway';
+    color: #374259;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+    
+
+.dogfeet{
+    position: absolute;
+    top: 8rem;
+    left: 52rem;
+    transform: rotate(45deg);
+    opacity: 9%;
+    width: 25rem;
+    height: 21rem;
+  }

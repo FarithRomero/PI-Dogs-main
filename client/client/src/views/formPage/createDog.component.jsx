@@ -1,15 +1,18 @@
 import './createDog.styles.css';
-import ButtonCustomized from '../../components/buttons/button.component.jsx';
-
-
+import NavigationBar from '../../components/navigationBar/navigationBar.component';
 
 function CreateDog() {
   return (
     <div>
-        <p>
-            Esta es la view para crear dogs
-        </p>
-        <ButtonCustomized/>
+      <NavigationBar/>
+      {/* <form>
+        <input>Nombre</input>
+        <input>Altura</input>
+        <input>Peso</input>
+        <input>Años de vida</input>
+        <input>Agregar temperamentos</input>
+        <button>Agregar nueva raza</button>
+      </form> */}
     </div>
   );
 }
