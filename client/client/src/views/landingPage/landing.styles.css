@@ -1,21 +1,54 @@
-.btn{
+
+  .btn {
+    border: solid 1px #ffffff0d;
+    background-color: #374259;
+    width: 6.9rem;
+    height: 1rem;
+    font-family: 'Raleway';
+    font-size: 100%;
+    color: white;
+    border-radius: 4%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
     position: absolute;
     align-content: space-around;
-    top: 25rem;
+    top: 20rem;
     left: 36rem;
   }
+    
 
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #F2D8D8;
+        color: #374259;
+    }
+    
 .title{
-    color: #FCE9F1;
+    color: #374259;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.541);
-    font-family: 'Intim';
-    transform-origin: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-family: 'League Spartan';
     font-size: 5rem;
     position: relative;
-    margin: 9rem;
+    margin: 0px;
+    width: 27rem;
+    top: 10rem;
+    left: 28rem
   }
-  
+  .subtitle{
+    color: #000000;
+    font-family: 'Raleway';
+    font-size: 1rem;
+    position: relative;
+    top:10rem;
+    left: 34rem;
+  }
 
+  .image{
+    position: absolute;
+    top: 6rem;
+    left: 51rem;
+    transform: rotate(0deg);
+    opacity: 9%;
+    width: 6rem;
+    height: 4rem;
+  }

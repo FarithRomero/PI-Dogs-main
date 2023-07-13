@@ -1,27 +1,39 @@
 .Card {
-    position: relative;
-    top: 0%;
-    left: 3rem;
+    padding-right: 30px;
+    left: 0rem;
     display: flex;
     flex-direction: column;
-    width: 17rem;
-    height: 15rem;
+    width: 12.5rem;
+    height: 13rem;
     text-align: center;
-    font-size: 64%;
+    font-size: 36%;
     font-family: 'Raleway';
-    padding: 5px 5px 5px 5px;
-    background-color: #00000081;
+    padding: 4px 5px 6px 5px;
+    background-color: #545b7770;
     border: 1px solid #dafffb2a;
     border-radius: 4px;
     box-shadow: 0 10px 25px 5px #00040172;
     color: #DAFFFB;
     text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.894);
     cursor: pointer;
-    line-height: 1rem;
+    line-height: 0rem;
     transition: transform 0.3s ease-in-out;
+    margin-bottom: 22px;
 }
-    
+
 .Card:hover {
     transform: translateY(-20px);
 }
-      
+
+.link{
+    color:#F2D8D8;
+    transition: transform 0.4s ease-in-out;
+    text-decoration: none;
+    
+}
+
+.link:hover {
+    color:#cecdc0e9;
+    transform: scale(1.2);
+}
+    

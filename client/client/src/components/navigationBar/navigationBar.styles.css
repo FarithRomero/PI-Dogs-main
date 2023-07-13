@@ -1,4 +1,30 @@
 .nav{
-    color:  #DAFFFB;
-    background-color: blue;
+    width: 158px;
+    color: #DAFFFB;
+    background-color: #374259;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
+.button {
+    border: solid 1px #ffffff0d;
+    background-color: #374259;
+    margin-right: 1rem;
+    width: 9.9rem;
+    height: 5rem;
+    font-family: 'Raleway';
+    font-size: 100%;
+    color: white;
+    border-radius: 1%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    }
+
+    .button:hover {
+        transform: scale(1.1);
+        background-color: #F2D8D8;
+        color: #374259;
+        text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
+    }
+    

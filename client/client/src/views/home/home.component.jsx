@@ -6,13 +6,13 @@ import CardsDogs from '../../components/cardsDogs/cardsDogs.component.jsx';
 function Home() {
   return (
     <div >   
-      <div className='NavContainer'>
-        <NavigationBar className='NavB'/>
-      </div>
       <div className='SearchB'>
         <SearchBar className='SearchB'/>
       </div>
-      <div className='container'>
+      <div className='NavContainer'>
+        <NavigationBar className='NavB'/>
+      </div>
+      <div className='CardsContainer'>
         <CardsDogs className='Cards'/>
       </div>
     </div>

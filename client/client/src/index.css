@@ -1,6 +1,5 @@
 body {
-  background-image: url("./assets/BackGround.jpg");
-  background-size: cover;  
+  background-color: white;
 }
 
 code {
@@ -8,5 +7,6 @@ code {
     monospace;
   font-family: 'Raleway', sans-serif;
   font-family: 'Itim', cursive;
+  font-family: 'League Spartan', sans-serif;
 }
 

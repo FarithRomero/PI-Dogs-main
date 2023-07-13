@@ -2,10 +2,10 @@ import './searchBar.styles.css';
 
 function SearchBar() {
   return (
-    <div>
+    <div className='SearchBarContainer'>
       <form>
-        <input placeholder='Buscar perro'/>
-        <button>Buscar</button>
+        <input lassName='inputC' placeholder='Buscar raza'/>
+        <button lassName='buttonC'>Buscar</button>
       </form>
     </div>
   );

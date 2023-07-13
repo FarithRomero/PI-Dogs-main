@@ -1,0 +1,20 @@
+.SearchB{
+    background-color:white; 
+    position: absolute;
+    left:70.2rem;
+}
+
+.NavContainer{
+    display: flex;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+    height: 39rem;
+    width: 171px;
+}   
+
+.CardsContainer{
+    position:absolute;
+    top:6rem;
+    left:13rem;   
+}
