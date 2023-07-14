@@ -1,0 +1,30 @@
+.formContainer{
+    position: absolute;
+    top: 9rem;
+    left: 20rem;
+    display: flex;
+    line-height: 2rem;
+    flex-wrap: nowrap;
+    width: 50rem;
+    height: 20rem;
+    font-family: 'Raleway';
+    font-size: 0.8rem;
+    background-color: #545B77;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+}
+.label{
+    color:#ffffff;
+}
+.span{
+    color:#F2BE22;
+}
+
+.input{
+    border-radius: 13px;
+    font-family: 'Raleway';
+    background-color: #F2D8D8;
+    color: #375859;
+}
