@@ -13,7 +13,6 @@ function DetailPage() {
 
   useEffect(()=>{
     dispatch(getByDetail(id))
-    console.log(dispatch)
   }, [dispatch, id])
   
   return (

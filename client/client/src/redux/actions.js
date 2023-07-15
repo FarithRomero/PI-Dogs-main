@@ -12,6 +12,18 @@ export const getAllBreeds = () => {
     }
 };
 
+export const postNewBreed = (submitData) => {
+    // let dataJson =  JSON.stringify(submitData);
+    return async function(dispatch){
+        try{
+            await axios.post('http://localhost:3001/dogs',submitData);   
+            return dispatch({type: POST_NEWBREED, payload: submitData})
+        } catch(error){
+             console.log(error);
+        }
+    }
+};
+
 const clearState = () => {//PENDIENTE POR TERMINAR
     return async function(dispatch){
         try{
@@ -57,5 +69,8 @@ export const getByDetail = (Id) => {
         }
     }
 };
+
+
+
 
 

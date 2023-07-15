@@ -1,10 +1,11 @@
-import { GET_ALL_BREEDS, GET_ALL_TEMPERAMENTS, CLEAR_STATE, GET_BY_NAME, GET_BY_DETAIL} from './action-types.js'; 
+import { GET_ALL_BREEDS, GET_ALL_TEMPERAMENTS, CLEAR_STATE, GET_BY_NAME, GET_BY_DETAIL, POST_NEWBREED} from './action-types.js'; 
 
 const initialState = {
     breeds: [],
     breedDetail: {},
     temperaments: [],
     copyBreeds: [],
+    responsePostBree: {}
 };
 
 const reducer = (state=initialState, action) => {
@@ -34,6 +35,11 @@ const reducer = (state=initialState, action) => {
                 return {
                     ...state,
                     copyBreeds: action.payload
+                }
+        case POST_NEWBREED:
+                return{
+                    ...state,
+                    responsePostBree: [...state.responsePostBree, action.payload]
                 }
         default:    
             return {...state}

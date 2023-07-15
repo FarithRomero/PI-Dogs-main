@@ -2,28 +2,24 @@ import './createDog.styles.css';
 import { useState, useEffect } from 'react';
 import NavigationBar from '../../components/navigationBar/navigationBar.component';
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTemperaments } from '../../redux/actions.js';
+import { getAllTemperaments, postNewBreed } from '../../redux/actions.js';
 
-
+const userSelectedTemperaments = [];
     
 function CreateDog() {
   const dispatch = useDispatch();
   const { temperaments } = useSelector(state => state)
   
-  
   useEffect(()=>{
     dispatch(getAllTemperaments())
   }, [dispatch])
 
-  const [selectedTemperament, setSelectedTemperament] = useState({
-    temperamento: "",
-  });
+  const [selectedTemperament, setSelectedTemperament] = useState({});
 
   const [input, setInputState] = useState({
     imagen: "www.pruebaImagen.com",
     nombre: "",
-    alturaMax: "",
-    alturaMin: "",
+    altura: "",
     peso: "",
     anios_de_vida: "",
     temperamento: "",
@@ -36,7 +32,6 @@ function CreateDog() {
     alturaMin: "",
     peso: "",
     anios_de_vida: "",
-    temperamento: "",
   });
 
   function validate(input) {
@@ -62,13 +57,21 @@ function CreateDog() {
 
   function handleSubmit(event) {
     event.preventDefault();
+
     if (validate(input)) {
       const altura = `${input.alturaMin} - ${input.alturaMax}`;
-
-      // Aquí puedes realizar la lógica para enviar los datos a la ruta POST
-      // Utiliza la variable 'input' que contiene los valores ingresados por el usuario
-      console.log("Datos enviados:", input);
-    } 
+      const temperamento = userSelectedTemperaments.join(" ");
+     
+      let submitData = {
+        imagen: "",
+        nombre: input.nombre,
+        altura: altura,
+        peso: input.peso,
+        anios_de_vida: input.anios_de_vida,
+        temperamento: temperamento 
+     };
+     dispatch(postNewBreed(submitData));
+     } 
   }
 
   function handleChange(event) {
@@ -82,17 +85,19 @@ function CreateDog() {
       ...input,
       [event.target.name]: event.target.value
     });
-  }
-
+  };
+ 
   function handledTemperaments(event){
     event.preventDefault();
-
+    let selection = event.target.value;
+    if(userSelectedTemperaments.length < 2){
+      userSelectedTemperaments.push(selection);
+    };
+ 
     setSelectedTemperament({
     [event.target.name]: event.target.value
     })
   }
-
-
   return (
     <div>
       <NavigationBar />
@@ -126,15 +131,12 @@ function CreateDog() {
           <div>
             <label className='label'>Seleccionar temperamento: </label>
             <select className='input' name='temperamento'  value={selectedTemperament.temperamento} onChange={handledTemperaments}>
-              <option value='' >Seleccione un temperamento</option>
-              {temperaments.map(temperament => (
-                <option key={temperament.id} value={temperament.id}>
-                  {temperament}
-                </option>
-              ))}
-
+              <option value=''>Seleccione un temperamento</option>
+                { temperaments.map((temperament, index) => (          
+                  <option key={index} value={temperament}>{temperament}</option>
+                ))}
             </select>   
-            <span className='span'> Has seleccionado {selectedTemperament.temperamento}</span>
+          {userSelectedTemperaments.length >= 1 ? <span className='span'> Has seleccionado: {`${userSelectedTemperaments[0]} - ${userSelectedTemperaments[1]}`}</span> : <span className='span'> Selecciona dos temperamentos</span>}            
           </div>
           {errorData.anios_de_vida ? null : <button type='submit'>Crear raza</button>}
         </form>
