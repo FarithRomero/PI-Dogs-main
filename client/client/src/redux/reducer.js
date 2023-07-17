@@ -45,7 +45,8 @@ const reducer = (state=initialState, action) => {
                 const disorderBreeds = [...state.breeds]
                 return {
                     ...state,
-                    orderBreeds: action.payload === "Ascendente"? disorderBreeds.sort((a, b) => a.id - b.id) : disorderBreeds.sort((a, b) => b.id - a.id)
+                    orderBreeds: action.payload === "Ascendente"? disorderBreeds.sort((a, b) => a.id - b.id) : disorderBreeds.sort((a, b) => b.id - a.id),
+                    orderWeights: disorderBreeds.sort((a, b) => a.Peso - b.Peso) 
                 }   
         default:    
             return {...state}
