@@ -1,3 +1,4 @@
+
 import './cardsDogs.styles.css';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -6,54 +7,47 @@ import { getAllBreeds } from '../../redux/actions.js';
 
 function CardsDogs() {
   const dispatch = useDispatch();
-  const { breeds } = useSelector(state => state)
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const input = breeds;
-  let razas = input.splice(0, 8)
+  const { breeds } = useSelector(state => state);
+  const [currentPage, setCurrentPage] = useState(0);
   const itemPerPage = 8;
 
- 
-  useEffect(()=>{
-    dispatch(getAllBreeds())//AQUÍ ESTÁ PENDIENTE EL DISMOUNT
-  }, [dispatch])
-    
+  useEffect(() => {
+    dispatch(getAllBreeds());
+  }, [dispatch]);
+
+  const startIndex = currentPage * itemPerPage;
+  const endIndex = startIndex + itemPerPage;
+  const currentBreeds = breeds.slice(startIndex, endIndex);
 
   const prevHandler = () => {
-    console.log("previous")
+    if (currentPage <= 0) return;
+    setCurrentPage(prevPage => prevPage - 1);
   }
 
- 
   const nextHandler = () => {
-    const totalBreeds = input.length;
-    const nextPage = currentPage + 1;
-    const indexOne = nextPage * itemPerPage;
-    if(indexOne === totalBreeds) return;
-    razas = input.splice(indexOne,8)
-    setCurrentPage(nextPage)
+    if (currentPage === breeds.length) return;
+    setCurrentPage(prevPage => prevPage + 1);
   }
- 
 
   return (
     <div>
-    <div className='container'>
-      {
-        razas?.map(breed => {
-          return <CardDog 
-                  key={breed.id} 
-                  Id={breed.id} 
-                  Imagen={breed.Imagen} 
-                  Nombre={breed.Nombre} 
-                  Temperamentos={breed.Temperamentos} 
-                  Peso={breed.Peso}/>
-        })
-      }
-    </div>
-    <div>
-       <h4 className='PWraper'>Pagina: {currentPage}</h4>
-       <button onClick={prevHandler}className='button4'>Prev</button>
-       <button onClick={nextHandler}className='button1'>Next</button>
-    </div>   
+      <div className='container'>
+        {currentBreeds.map(breed => (
+          <CardDog 
+            key={breed.id} 
+            Id={breed.id} 
+            Imagen={breed.Imagen} 
+            Nombre={breed.Nombre} 
+            Temperamentos={breed.Temperamentos} 
+            Peso={breed.Peso}
+          />
+        ))}
+      </div>
+      <div>
+        <h4 className='PWraper'>Pagina: {currentPage}</h4>
+        <button onClick={prevHandler} className='button4'>Prev</button>
+        <button onClick={nextHandler} className='button1'>Next</button>
+      </div>   
     </div>  
   );
 }
