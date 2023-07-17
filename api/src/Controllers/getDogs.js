@@ -29,6 +29,7 @@ const getDogsAndQuery = async(req, res) => {
               imagen: findApi.image.url,
               nombre: findApi.name,
               altura: findApi.height.metric, 
+              peso: findApi.weight.imperial,
               temperamentos: findApi.temperament,
               años_de_vida: findApi.life_span,
           });

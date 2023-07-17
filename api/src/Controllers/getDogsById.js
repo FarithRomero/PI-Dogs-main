@@ -22,7 +22,8 @@ const getDogById = async(req, res) => {
             id: apiDog.id,
             imagen: apiDog.image.url,
             nombre: apiDog.name,
-            altura: apiDog.height.metric, 
+            altura: apiDog.height.metric,
+            peso: apiDog.weight.imperial, 
             temperamentos: apiDog.temperament,
             años_de_vida: apiDog.life_span,
         });

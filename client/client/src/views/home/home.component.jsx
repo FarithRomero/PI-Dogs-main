@@ -7,21 +7,21 @@ import { useState, useEffect } from "react";
 import { getByName, getAllBreeds} from '../../redux/actions.js';
 
 
-function Home(props) {
+function Home() {
   const dispatch = useDispatch();
-  const { copyBreeds } = useSelector(state => state)
+  const { breeds } = useSelector(state => state)
   const [searchValue, setSearchValue ] = useState("");
+
+  const data = breeds;
 
 
   function handlerEvent(event){
     event.preventDefault()
     setSearchValue(event.target.value)
-    console.log(searchValue);
   };
 
   function handlerSubmit(event){
     event.preventDefault();
-    console.log(getByName(searchValue));
     dispatch(getByName(searchValue))
   }
 
@@ -38,7 +38,7 @@ function Home(props) {
         <NavigationBar className='NavB'/>
       </div>
       <div className='CardsContainer'>
-        <CardsDogs props={copyBreeds} className='Cards'/>
+        <CardsDogs props={data} className='Cards'/>
       </div>
       <button className='button2'>Temperamentos</button>
       <button className='button3'>Ascendente-Descendente</button>

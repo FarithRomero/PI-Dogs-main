@@ -24,7 +24,7 @@ function DetailPage() {
           <h3>Temperamentos: {copyBreeds.temperamentos}</h3>
           <h3>Id: {copyBreeds.id}</h3>  
           <h3>Altura: {copyBreeds.altura} cms</h3>
-          <h3>Peso: {copyBreeds.Peso} Kg</h3>   
+          <h3>Peso: {copyBreeds.peso} Kg</h3>   
           <h3>Años de vida: {copyBreeds.años_de_vida} </h3>
         </div>
         <img src={dogImage} alt="dog" className="dogfeet" />
