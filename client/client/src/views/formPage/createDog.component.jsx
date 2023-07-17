@@ -70,7 +70,9 @@ function CreateDog() {
         anios_de_vida: input.anios_de_vida,
         temperamento: temperamento 
      };
-     dispatch(postNewBreed(submitData));
+
+     let data = JSON.stringify(submitData);
+     dispatch(postNewBreed(data));
      } 
   }
 

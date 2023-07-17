@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { getByName, getAllBreeds} from '../../redux/actions.js';
 
 
-function Home() {
+function Home(props) {
   const dispatch = useDispatch();
   const { copyBreeds } = useSelector(state => state)
   const [searchValue, setSearchValue ] = useState("");
@@ -40,8 +40,6 @@ function Home() {
       <div className='CardsContainer'>
         <CardsDogs props={copyBreeds} className='Cards'/>
       </div>
-      <button className='button1'>Ver más</button>
-      
       <button className='button2'>Temperamentos</button>
       <button className='button3'>Ascendente-Descendente</button>
     </div>

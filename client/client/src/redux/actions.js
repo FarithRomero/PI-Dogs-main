@@ -12,17 +12,16 @@ export const getAllBreeds = () => {
     }
 };
 
-export const postNewBreed = (submitData) => {
-    // let dataJson =  JSON.stringify(submitData);
-    return async function(dispatch){
-        try{
-            await axios.post('http://localhost:3001/dogs',submitData);   
-            return dispatch({type: POST_NEWBREED, payload: submitData})
-        } catch(error){
-             console.log(error);
+    export const postNewBreed = (data) => {
+        return async function(dispatch){
+            try{
+                await axios.post('http://localhost:3001/dogs',data);   
+                return dispatch({type: POST_NEWBREED, payload: data})
+            } catch(error){
+                console.log(error);
+            }
         }
-    }
-};
+    };
 
 const clearState = () => {//PENDIENTE POR TERMINAR
     return async function(dispatch){
