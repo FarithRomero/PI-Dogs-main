@@ -4,30 +4,34 @@ import SearchBar from '../../components/searchBar/searchBar.component.jsx';
 import CardsDogs from '../../components/cardsDogs/cardsDogs.component.jsx';
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { getByName, getAllBreeds} from '../../redux/actions.js';
-
+import { getByName } from '../../redux/actions.js';
+import CardDog from '../../components/cardDog/cardDog.component.jsx';
 
 function Home() {
   const dispatch = useDispatch();
-  const { breeds } = useSelector(state => state)
+  const { copyBreeds } = useSelector(state => state)
   const [searchValue, setSearchValue ] = useState("");
+  const [showCard, setShowCard] = useState(false)
 
-  const data = breeds;
-
-
-  function handlerEvent(event){
+   function handlerEvent(event){
     event.preventDefault()
     setSearchValue(event.target.value)
   };
 
   function handlerSubmit(event){
     event.preventDefault();
-    dispatch(getByName(searchValue))
+    dispatch(getByName(searchValue));   
+ 
+    setShowCard(true)
+  }
+
+  function handleGoBack() {
+    setShowCard(false);
   }
 
   useEffect(()=>{
-    dispatch(getAllBreeds())//AQUÍ ESTÁ PENDIENTE EL DISMOUNT
-  }, [dispatch])
+    setShowCard(false)
+  }, [])
 
   return (
     <div >   
@@ -37,9 +41,21 @@ function Home() {
       <div className='NavContainer'>
         <NavigationBar className='NavB'/>
       </div>
-      <div className='CardsContainer'>
-        <CardsDogs props={data} className='Cards'/>
-      </div>
+      {showCard === true ? (
+        <div className='cardName'>
+          <CardDog      
+            key={copyBreeds.id} 
+            Id={copyBreeds.id} 
+            Imagen={copyBreeds.imagen} 
+            Nombre={copyBreeds.nombre} 
+            Temperamentos={copyBreeds.temperamentos} 
+            Peso={copyBreeds.peso} 
+          />
+          <button className='buttonBack' onClick={handleGoBack}>Volver</button>
+        </div>
+      ) : (
+        <div className='CardsContainer'><CardsDogs/></div>
+      )} 
       <button className='button2'>Temperamentos</button>
       <button className='button3'>Ascendente-Descendente</button>
     </div>

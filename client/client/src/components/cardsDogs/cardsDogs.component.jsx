@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import CardDog from '../cardDog/cardDog.component.jsx';
 import { getAllBreeds } from '../../redux/actions.js';
 
-function CardsDogs(data) {
+function CardsDogs() {
   const dispatch = useDispatch();
   const { breeds } = useSelector(state => state);
   const [currentPage, setCurrentPage] = useState(0);
