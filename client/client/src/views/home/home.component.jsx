@@ -56,10 +56,12 @@ function Home() {
       ) : (
         <div className='CardsContainer'><CardsDogs/></div>
       )} 
-      <button className='button2'>Temperamentos</button>
-      <button className='button3'>Ascendente-Descendente</button>
+
     </div>
   );
 }
 
 export default Home;
+
+
+

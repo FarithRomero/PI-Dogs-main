@@ -69,6 +69,9 @@ export const getByDetail = (Id) => {
     }
 };
 
+export  const orderCards = (order) => {
+        return { type: ORDER_BREEDS, payload: order };
+};
 
 
 

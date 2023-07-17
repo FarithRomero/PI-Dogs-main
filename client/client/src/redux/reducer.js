@@ -1,10 +1,10 @@
-import { GET_ALL_BREEDS, GET_ALL_TEMPERAMENTS, CLEAR_STATE, GET_BY_NAME, GET_BY_DETAIL, POST_NEWBREED} from './action-types.js'; 
+import { GET_ALL_BREEDS, GET_ALL_TEMPERAMENTS, CLEAR_STATE, GET_BY_NAME, GET_BY_DETAIL, POST_NEWBREED, ORDER_BREEDS} from './action-types.js'; 
 
 const initialState = {
     breeds: [],
     breedDetail: {},
     temperaments: [],
-    copyBreeds: [],
+    orderBreeds: [],
     responsePostBree: {}
 };
 
@@ -41,6 +41,12 @@ const reducer = (state=initialState, action) => {
                     ...state,
                     responsePostBree: [...state.responsePostBree, action.payload]
                 }
+        case ORDER_BREEDS:
+                const disorderBreeds = [...state.breeds]
+                return {
+                    ...state,
+                    orderBreeds: action.payload === "Ascendente"? disorderBreeds.sort((a, b) => a.id - b.id) : disorderBreeds.sort((a, b) => b.id - a.id)
+                }   
         default:    
             return {...state}
     }
