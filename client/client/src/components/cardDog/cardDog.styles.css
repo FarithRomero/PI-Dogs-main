@@ -5,7 +5,7 @@
     width: 16rem;
     height: 14rem;
     padding: 4px 5px 6px 5px;
-    background-color: #3F2E3E;
+    background-color: #0bc1488c;
     border: 1px solid #ffffff99;
     cursor: pointer;
     transition: transform 0.5s ease-in-out;
@@ -13,11 +13,11 @@
 }
 
 .Card:hover {
-    transform: scale(1.3);
+    transform: scale(1.12);
 }
 
 .link{
-    color:#F2D8D8;
+    color: #374259;
     transition: transform 0.4s ease-in-out;
     text-decoration: none;
     font-size: 0.4rem;
@@ -26,7 +26,7 @@
 }
 
 .link:hover {
-    color:#ffffff;
+    color:#202020;
     text-decoration-line: underline;
     transform: translateY(-5px); 
 }
@@ -37,7 +37,7 @@
 }
 
 .textContainer{
-    color: #bda0af;
+    color: #545b77;
     word-wrap: break-word; 
     overflow-wrap: break-word; 
     text-align:center;

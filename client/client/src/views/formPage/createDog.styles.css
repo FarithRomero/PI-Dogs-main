@@ -9,7 +9,7 @@
     height: 20rem;
     font-family: 'Raleway';
     font-size: 0.8rem;
-    background-color: #545B77;
+    background-color: #374259;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -26,5 +26,39 @@
     border-radius: 13px;
     font-family: 'Raleway';
     background-color: #F2D8D8;
-    color: #375859;
+    color: #000000;
+    width: 6rem;
 }
+
+.submit{
+    position: relative;
+    left: 0rem;
+    top: 0.7000000000000002rem;
+    border: solid 1px #ffffff0d;
+    background-color: #0bc1488c;
+    margin-right: 1rem;
+    width: 4.899999999999999rem;
+    height: 1.3rem;
+    font-family: 'Raleway';
+    font-size: 90%;
+    color: white;
+    border-radius: 5%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    }
+
+    .submit:hover {
+        transform: scale(1.1);
+        background-color: #F2D8D8;
+        color: #374259;
+        text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
+    }
+    .dogfeet{
+        position: absolute;
+        top: -4.700000000000003rem;
+        left: 50rem;
+        transform: rotate(45deg);
+        opacity: 9%;
+        width: 7rem;
+        height: 5rem;
+    }

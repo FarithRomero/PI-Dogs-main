@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import NavigationBar from '../../components/navigationBar/navigationBar.component';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTemperaments, postNewBreed } from '../../redux/actions.js';
+import dogImage from '../../assets/pngtree-print-of-paw-dog-or-cat-png-image_4887169.png';
+
 
 function CreateDog() {
   const dispatch = useDispatch();
@@ -99,10 +101,11 @@ function CreateDog() {
     <div>
       <NavigationBar />
       <div className='formContainer'>
+      <img src={dogImage} alt="dog" className="dogfeet" />
         <form onSubmit={handleSubmit}>
           <div>
             <label className='label'>Nombre: </label>
-            <input className='input' name='nombre' value={input.nombre} onChange={handleChange} placeholder='Nombre de raza' />
+            <input className='input' name='nombre' value={input.nombre} onChange={handleChange} placeholder='Raza' />
             <span className='span'>{errorData.nombre}</span>
           </div>
           <div>
@@ -141,7 +144,7 @@ function CreateDog() {
             </select>
             {selectedTemperaments.length >= 1 ? <span className='span'> Has seleccionado: {`${selectedTemperaments[0]} - ${selectedTemperaments[1]}`}</span> : <span className='span'> Selecciona dos temperamentos</span>}
           </div>
-          {errorData.anios_de_vida ? null : <button type='submit'>Crear raza</button>}
+          {errorData.anios_de_vida ? null : <button className='submit' type='submit'>Crear raza</button>}
         </form>
       </div>
     </div>

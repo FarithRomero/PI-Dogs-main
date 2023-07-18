@@ -2,39 +2,12 @@
     position: absolute;
     height: 31rem;
     grid-template-columns: 14rem 14rem 14rem 10rem;
-    width: 79rem;
+    width: 73rem;
     display: grid;
-    justify-content: space-evenly;
-    justify-items: center;
-    align-items: start;
+    justify-items: stretch;
+    align-items: stretch;
     align-content: space-evenly;
-}
-
-.container::-webkit-scrollbar {
-    -webkit-appearance:none;
-}
-
-.container::-webkit-scrollbar:vertical {
-    width:12px;
-   
-}
-.container::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
-    display: none;
-} 
-
-.container::-webkit-scrollbar:horizontal {
-    height: 10px;
-}
-
-.container::-webkit-scrollbar-thumb {
-    background-color: #374259;
-    border-radius: 20px;
-    border: 2px solid #F2D8D8;
-}
-
-.container::-webkit-scrollbar-track {
-    border-radius: 10px;  
-    background-color: rgb(212, 226, 187);
+    justify-content: space-around;
 }
 
 
@@ -57,7 +30,7 @@
 
     .button1:hover {
         transform: scale(1.1);
-        background-color: #CBFFA9;
+        background-color: #ffffff;
         color: #374259;
         text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
     }
@@ -81,7 +54,7 @@
     
     .button4:hover {
         transform: scale(1.1);
-        background-color: #CBFFA9;
+        background-color: #ffffff;
         color: #374259;
         text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
     }

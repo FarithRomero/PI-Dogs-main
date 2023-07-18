@@ -4,7 +4,7 @@ function SearchBar({handlerEvent, handlerSubmit}) {
   return (
     <div className='SearchBarContainer'>
       <form onChange={handlerEvent}>
-        <input className='inputC' placeholder='Buscar raza' type='search'/>
+        <input className='inputSearch' placeholder='Buscar raza' type='search'/>
         <button className='buttonSearch' type='submit' onClick={handlerSubmit}>Buscar</button>
       </form>
     </div>
