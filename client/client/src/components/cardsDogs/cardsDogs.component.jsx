@@ -2,22 +2,25 @@ import './cardsDogs.styles.css';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import CardDog from '../cardDog/cardDog.component.jsx';
-import { getAllBreeds, orderCards } from '../../redux/actions.js';
+import { getAllBreeds, orderCards, getAllTemperaments } from '../../redux/actions.js';
 
 function CardsDogs() {
   const dispatch = useDispatch();
 
   const { breeds } = useSelector(state => state);
   const { orderBreeds } = useSelector(state => state);
-  
+  const { temperaments } = useSelector(state => state)
   
   const [showOrderByBreeds, setShowOrderByBreeds] = useState(false);
-  const [showOrderByWeight, setShowOrederByWeight] = useState(false);
+  const [showOrderByWeight, setShowOrederByWeight] = useState({activate: false, aux: "", });
   const [currentPage, setCurrentPage] = useState(0);
+  const [selectedTemperament, setSelectedTemperament] = useState({});
   const itemPerPage = 8;
+
 
   useEffect(() => {
     dispatch(getAllBreeds());
+    dispatch(getAllTemperaments());
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,16 +43,23 @@ function CardsDogs() {
   }
 
   const orderHandler = (event) => {
+    event.preventDefault();
     dispatch(orderCards(event.target.value));
     
     if(event.target.value === "Ascendente" || event.target.value === "Descendente" ){
       setShowOrderByBreeds(true);
-      setShowOrederByWeight(false);
+      setShowOrederByWeight({
+        ...showOrderByWeight,
+        activate: false
+      });
       return;
     }
-    if(event.target.value === "Peso"){
+    if(event.target.value === "Peso menor" || event.target.value === "Peso mayor"){
       setShowOrderByBreeds(false);
-      setShowOrederByWeight(true);
+      setShowOrederByWeight({
+        aux: event.target.value,
+        activate: true
+      });
       return;
     }
   }
@@ -57,7 +67,8 @@ function CardsDogs() {
   if (showOrderByBreeds === true){
     currentBreeds=orderBreeds.slice(startIndex, endIndex);
   }
-  if (showOrderByWeight === true){
+
+  if (showOrderByWeight.activate === true && showOrderByWeight.aux === "Peso menor" ){
     const weightOrdered = breeds.slice().sort((a, b) => {
       const weightA = parseInt(a.Peso.split(" - ")[0]);
       const weightB = parseInt(b.Peso.split(" - ")[0]);
@@ -65,6 +76,25 @@ function CardsDogs() {
     });
     currentBreeds = weightOrdered.slice(startIndex, endIndex);
   }
+  if(showOrderByWeight.activate === true && showOrderByWeight.aux === "Peso mayor" ){
+    const weightOrdered = breeds.slice().sort((a, b) => {
+      const weightA = parseInt(a.Peso.split(" - ")[0]);
+      const weightB = parseInt(b.Peso.split(" - ")[0]);
+      return weightB - weightA;
+    });
+    currentBreeds = weightOrdered.slice(startIndex, endIndex);
+  }
+
+
+  function handledTemperaments(event){
+    event.preventDefault();
+    
+    let selection = event.target.value;
+    setSelectedTemperament({
+    [event.target.name]: event.target.value
+    })
+  }
+
   return (
     <div>
       <div className='container'>
@@ -87,9 +117,15 @@ function CardsDogs() {
           <option value="Default">Ordenar Razas</option>
           <option value="Ascendente">A - Z</option>
           <option value="Descendente">Z - A</option>
-          <option value="Peso">Peso</option>
+          <option value="Peso menor">Peso menor</option>
+          <option value="Peso mayor">Peso mayor</option>
         </select>
-        <button className='button2'>Ordenar temperamentos</button>
+        <select className='button2' name='temperamento'  value={selectedTemperament.temperamento} onChange={handledTemperaments}>
+              <option value=''>Filtrar temperamento</option>
+                { temperaments.map((temperament, index) => (          
+                  <option key={index} value={temperament}>{temperament}</option>
+                ))}
+            </select>
       </div>   
     </div>  
   );
