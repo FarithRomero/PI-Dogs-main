@@ -1,28 +1,26 @@
 import './createDog.styles.css';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavigationBar from '../../components/navigationBar/navigationBar.component';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTemperaments, postNewBreed } from '../../redux/actions.js';
 
-const userSelectedTemperaments = [];
-    
 function CreateDog() {
   const dispatch = useDispatch();
-  const { temperaments } = useSelector(state => state)
-  
-  useEffect(()=>{
-    dispatch(getAllTemperaments())
-  }, [dispatch])
+  const { temperaments } = useSelector(state => state);
 
-  const [selectedTemperament, setSelectedTemperament] = useState({});
+  useEffect(() => {
+    dispatch(getAllTemperaments());
+  }, [dispatch]);
+
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
 
   const [input, setInputState] = useState({
     imagen: "",
     nombre: "",
-    altura: "",
+    alturaMax: "",
+    alturaMin: "",
     peso: "",
     anios_de_vida: "",
-    temperamento: "",
   });
 
   const [errorData, setErrorData] = useState({
@@ -47,10 +45,10 @@ function CreateDog() {
     }
     if (!/^\d+(\.\d+)?$/.test(input.peso)) {
       errors.peso = "Peso inválido";
-    }  
+    }
     if (!/^\d+(\.\d+)?$/.test(input.anios_de_vida)) {
       errors.anios_de_vida = "Años inválidos";
-    }  
+    }
     setErrorData(errors);
     return Object.keys(errors).length === 0;
   }
@@ -60,26 +58,25 @@ function CreateDog() {
 
     if (validate(input)) {
       const altura = `${input.alturaMin} - ${input.alturaMax}`;
-      const temperamento = userSelectedTemperaments.join(" ");
-     console.log(temperamento);
-      let submitData = {
+      const firsTemperament = selectedTemperaments[0];
+      const secondTemperament = selectedTemperaments[1];
+
+      const submitData = {
         imagen: "",
         nombre: input.nombre,
         altura: altura,
         peso: input.peso,
         anios_de_vida: input.anios_de_vida,
-        temperamento: temperamento,
-     };
+        temperamentos: [firsTemperament, secondTemperament]
+      };
 
-     let data = JSON.stringify(submitData)
-     console.log(data)
-     dispatch(postNewBreed(submitData));
-     } 
+      dispatch(postNewBreed(submitData));
+    }
   }
 
   function handleChange(event) {
     event.preventDefault();
-      setInputState({
+    setInputState({
       ...input,
       [event.target.name]: event.target.value
     });
@@ -88,19 +85,16 @@ function CreateDog() {
       ...input,
       [event.target.name]: event.target.value
     });
-  };
- 
-  function handledTemperaments(event){
-    event.preventDefault();
-    let selection = event.target.value;
-    if(userSelectedTemperaments.length < 2){
-      userSelectedTemperaments.push(selection);
-    };
- 
-    setSelectedTemperament({
-    [event.target.name]: event.target.value
-    })
   }
+
+  function handledTemperaments(event) {
+    event.preventDefault();
+    const selection = event.target.value;
+    if (selectedTemperaments.length < 2) {
+      setSelectedTemperaments([...selectedTemperaments, selection]);
+    }
+  }
+
   return (
     <div>
       <NavigationBar />
@@ -108,7 +102,7 @@ function CreateDog() {
         <form onSubmit={handleSubmit}>
           <div>
             <label className='label'>Nombre: </label>
-            <input  className='input' name='nombre' value={input.nombre} onChange={handleChange} placeholder='Nombre de raza' />
+            <input className='input' name='nombre' value={input.nombre} onChange={handleChange} placeholder='Nombre de raza' />
             <span className='span'>{errorData.nombre}</span>
           </div>
           <div>
@@ -128,18 +122,24 @@ function CreateDog() {
           </div>
           <div>
             <label className='label'>Años de vida: </label>
-            <input  className='input' name='anios_de_vida' value={input.anios_de_vida} placeholder='Años de vida' onChange={handleChange} />
+            <input className='input' name='anios_de_vida' value={input.anios_de_vida} placeholder='Años de vida' onChange={handleChange} />
             <span className='span'>{errorData.anios_de_vida}</span>
           </div>
           <div>
-            <label className='label'>Seleccionar temperamento: </label>
-            <select className='input' name='temperamento'  value={selectedTemperament.temperamento} onChange={handledTemperaments}>
-              <option value=''>Seleccione un temperamento</option>
-                { temperaments.map((temperament, index) => (          
-                  <option key={index} value={temperament}>{temperament}</option>
-                ))}
-            </select>   
-          {userSelectedTemperaments.length >= 1 ? <span className='span'> Has seleccionado: {`${userSelectedTemperaments[0]} - ${userSelectedTemperaments[1]}`}</span> : <span className='span'> Selecciona dos temperamentos</span>}            
+            <label className='label'>Seleccionar temperamentos: </label>
+            <select className='input' name='temperamentoOne' value={selectedTemperaments[0]} onChange={handledTemperaments} disabled={selectedTemperaments.length >= 2}>
+              <option value=''>Seleccione temperamento</option>
+              {temperaments.map((temperament, index) => (
+                <option key={index} value={temperament}>{temperament}</option>
+              ))}
+            </select>
+            <select className='input' name='temperamentoTwo' value={selectedTemperaments[1]} onChange={handledTemperaments} disabled={selectedTemperaments.length >= 2}>
+              <option value=''>Seleccione temperamento</option>
+              {temperaments.map((temperament, index) => (
+                <option key={index} value={temperament}>{temperament}</option>
+              ))}
+            </select>
+            {selectedTemperaments.length >= 1 ? <span className='span'> Has seleccionado: {`${selectedTemperaments[0]} - ${selectedTemperaments[1]}`}</span> : <span className='span'> Selecciona dos temperamentos</span>}
           </div>
           {errorData.anios_de_vida ? null : <button type='submit'>Crear raza</button>}
         </form>
