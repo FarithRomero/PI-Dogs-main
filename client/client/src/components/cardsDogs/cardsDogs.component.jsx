@@ -12,20 +12,26 @@ function CardsDogs() {
   const { temperaments } = useSelector(state => state)
   
   const [showOrderByBreeds, setShowOrderByBreeds] = useState(false);
-  const [showOrderByWeight, setShowOrederByWeight] = useState({activate: false, aux: "", });
+  const [showOrderByWeight, setShowOrederByWeight] = useState({
+    activate: false, 
+    aux: "", 
+  });
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedTemperament, setSelectedTemperament] = useState({});
+  const [selectedTemperament, setSelectedTemperament] = useState({
+    activate: false, 
+    selected: "", 
+  });
   const itemPerPage = 8;
 
 
   useEffect(() => {
     dispatch(getAllBreeds());
-    dispatch(getAllTemperaments());
+
   }, [dispatch]);
 
   useEffect(() => {
-    
-   }, [orderBreeds]);
+    dispatch(getAllTemperaments());
+  }, [orderBreeds]);
 
   const startIndex = currentPage * itemPerPage;
   const endIndex = startIndex + itemPerPage;
@@ -62,11 +68,23 @@ function CardsDogs() {
       });
       return;
     }
-  }
+  };
+  
+  function handledTemperaments(event){
+    setSelectedTemperament({
+      activate: true, 
+      selected: event.target.value, 
+    })
+  };
+
+  if(selectedTemperament.activate === true){
+     const filteredTemperamtes = breeds.filter(item => {return item.Temperamentos && item.Temperamentos.includes(selectedTemperament.selected)});
+    currentBreeds = filteredTemperamtes.slice(startIndex, endIndex);
+  };
 
   if (showOrderByBreeds === true){
     currentBreeds=orderBreeds.slice(startIndex, endIndex);
-  }
+  };
 
   if (showOrderByWeight.activate === true && showOrderByWeight.aux === "Peso menor" ){
     const weightOrdered = breeds.slice().sort((a, b) => {
@@ -75,7 +93,8 @@ function CardsDogs() {
       return weightA - weightB;
     });
     currentBreeds = weightOrdered.slice(startIndex, endIndex);
-  }
+  };
+  
   if(showOrderByWeight.activate === true && showOrderByWeight.aux === "Peso mayor" ){
     const weightOrdered = breeds.slice().sort((a, b) => {
       const weightA = parseInt(a.Peso.split(" - ")[0]);
@@ -83,18 +102,8 @@ function CardsDogs() {
       return weightB - weightA;
     });
     currentBreeds = weightOrdered.slice(startIndex, endIndex);
-  }
-
-
-  function handledTemperaments(event){
-    event.preventDefault();
-    
-    let selection = event.target.value;
-    setSelectedTemperament({
-    [event.target.name]: event.target.value
-    })
-  }
-
+  };
+  
   return (
     <div>
       <div className='container'>
@@ -113,7 +122,7 @@ function CardsDogs() {
         <h4 className='PWraper'>Pagina: {currentPage}</h4>
         <button onClick={prevHandler} className='button4'>Prev</button>
         <button onClick={nextHandler} className='button1'>Next</button>
-        <select className='button3' name='ordenar' value="Ordenar Razas" onChange={orderHandler}>
+        <select className='button3' name='ordenar' value={currentBreeds}onChange={orderHandler}>
           <option value="Default">Ordenar Razas</option>
           <option value="Ascendente">A - Z</option>
           <option value="Descendente">Z - A</option>
@@ -132,4 +141,3 @@ function CardsDogs() {
 }
 
 export default CardsDogs;
-
