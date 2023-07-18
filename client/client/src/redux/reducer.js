@@ -5,7 +5,7 @@ const initialState = {
     breedDetail: {},
     temperaments: [],
     orderBreeds: [],
-    responsePostBree: {}
+    responsePostBree: []
 };
 
 const reducer = (state=initialState, action) => {

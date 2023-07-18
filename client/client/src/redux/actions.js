@@ -7,21 +7,23 @@ export const getAllBreeds = () => {
             const response = await axios.get('http://localhost:3001/dogs');
             return dispatch({type: GET_ALL_BREEDS, payload: response.data})
         } catch(error){
-            console.log(error.message)
+            alert(error.message)
         }
     }
 };
 
-    export const postNewBreed = (data) => {
-        return async function(dispatch){
-            try{
-                await axios.post('http://localhost:3001/dogs',data);   
-                return dispatch({type: POST_NEWBREED, payload: data})
-            } catch(error){
-                console.log(error);
-            }
+export const postNewBreed = (dog) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post('http://localhost:3001/dogs', dog);
+            dispatch({ type: POST_NEWBREED, payload: response.data });
+            alert("Perro creado correctamente")
+            return response;
+        } catch (error) {
+            alert(error.message)
         }
     };
+};
 
 const clearState = () => {//PENDIENTE POR TERMINAR
     return async function(dispatch){
@@ -40,7 +42,7 @@ export const getByName = (name) => {
             const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
             return dispatch({type: GET_BY_NAME, payload: response.data})
         } catch(error){
-            console.log(error.message)
+            alert(error.message)
         }
     }
 };
@@ -52,7 +54,7 @@ export const getAllTemperaments = () => {
             const response = await axios.get('http://localhost:3001/temperaments');
             return dispatch({type: GET_ALL_TEMPERAMENTS, payload: response.data})
         } catch(error){
-            console.log(error.message)
+            alert(error.message)
         }
     }
 };
@@ -64,7 +66,7 @@ export const getByDetail = (Id) => {
             const response = await axios.get(`http://localhost:3001/dogs/${Id}`);
             return dispatch({type: GET_BY_DETAIL, payload: response.data})
         } catch(error){
-            console.log(error.message)
+            alert(error.message)
         }
     }
 };

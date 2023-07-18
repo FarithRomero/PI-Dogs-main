@@ -6,13 +6,13 @@ module.exports = (sequelize) => {
 //función de prueba
   sequelize.define('Dog', {
     id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
+      type: DataTypes.UUID, //* El id se genera automáticamente si no lo ponemos
       defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
     },
     imagen: {
       type: DataTypes.STRING,
-      isUrl: true,
       allowNull: true,
     },
     nombre: {

@@ -17,7 +17,7 @@ function CreateDog() {
   const [selectedTemperament, setSelectedTemperament] = useState({});
 
   const [input, setInputState] = useState({
-    imagen: "www.pruebaImagen.com",
+    imagen: "",
     nombre: "",
     altura: "",
     peso: "",
@@ -61,18 +61,19 @@ function CreateDog() {
     if (validate(input)) {
       const altura = `${input.alturaMin} - ${input.alturaMax}`;
       const temperamento = userSelectedTemperaments.join(" ");
-     
+     console.log(temperamento);
       let submitData = {
         imagen: "",
         nombre: input.nombre,
         altura: altura,
         peso: input.peso,
         anios_de_vida: input.anios_de_vida,
-        temperamento: temperamento 
+        temperamento: temperamento,
      };
 
-     let data = JSON.stringify(submitData);
-     dispatch(postNewBreed(data));
+     let data = JSON.stringify(submitData)
+     console.log(data)
+     dispatch(postNewBreed(submitData));
      } 
   }
 

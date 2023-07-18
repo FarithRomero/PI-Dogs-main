@@ -26,7 +26,6 @@ function CardsDogs() {
 
   useEffect(() => {
     dispatch(getAllBreeds());
-
   }, [dispatch]);
 
   useEffect(() => {
