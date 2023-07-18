@@ -8,22 +8,32 @@ const getDogsAndQuery = async(req, res) => {
     const name = req.query.name;
 
     if(name !== undefined){//si recibe un perro por query
-      const breedApi = capitalizeString(name);//transformelo a un formato valido
-      console.log(breedApi);
+      const dogWanted = capitalizeString(name);//transformelo a un formato valido
+
       try { 
         const {data} = await axios(URL);  // haga un llamado a la API
-        const findApi = data.find( perro => perro.name.toString() == breedApi );// busque el perro corregido en la api
+        const findApi = data.find( perro => perro.name.toString() == dogWanted );// busque el perro  en la api
         if(findApi === undefined){  //si el perro NO está en la API
-        console.log("el perro no se encuentra en la API")
-          const findDb = await Dog.findOne({ where: { nombre: name } });//busquelo en la base de datos
+        console.log("El perro no se encuentra en la API")
+          const findDb = await Dog.findOne({ where: { nombre: dogWanted } });//busquelo en la base de datos
           if(findDb){
-           console.log("el perro se encuentra en la db") 
-           return res.status(200).send(findDb);
+           console.log("El perro se encuentra en la DataBase") 
+           console.log(findDb.id)
+           return res.status(200).send(
+            {
+              id: findDb.id,
+              imagen: findDb.imagen,
+              nombre: findDb.nombre,
+              altura: findDb.altura, 
+              peso: findDb.peso,
+              // temperamentos: findDb.temperament,
+              años_de_vida: findDb.anios_de_vida,
+          });
           }else{
             return res.status(400).send("El perro no se encuentra en la base de datos");
           };
         }else{ //si el perro está en la API traigalo
-            console.log("el perro está en la API");
+            console.log("El perro está en la API");
           return res.status(200).send({
               id: findApi.id,
               imagen: findApi.image.url,
@@ -44,15 +54,16 @@ const getDogsAndQuery = async(req, res) => {
           .then(response => {
               const data = response.data;
               let razas = [];
-              data.forEach(dog => { // cree a todas larazas dentro de un array
-                let obj = {
+              data.forEach(dog => { // cree a todas las razas dentro de un array
+                let objApi = {
                   id: dog.id,
                   Imagen: dog.image.url,
                   Nombre: dog.name,
                   Temperamentos: dog.temperament,
-                  Peso: dog.weight.imperial
+                  Peso: dog.weight.imperial,
+                  Origen: "Api"
                 }
-                razas.push(obj)
+                razas.push(objApi)
               });  
           res.status(200).send(razas);// retorne las razas
           });  
