@@ -9,25 +9,29 @@
     height: 20rem;
     font-family: 'Raleway';
     font-size: 0.8rem;
-    background-color: #374259;
+    background-color: #0bc14817;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 5px;
 }
 .label{
-    color:#ffffff;
+    color:#374259;
 }
 .span{
-    color:#F2BE22;
+    color: #ff3114;
+    position: relative;
+    left: 5px;
 }
 
 .input{
     border-radius: 13px;
     font-family: 'Raleway';
-    background-color: #F2D8D8;
-    color: #000000;
+    background-color: #ffffff;
+    color: #374259;
     width: 6rem;
+    position: relative;
+    left: 3px;
 }
 
 .submit{
@@ -53,12 +57,10 @@
         color: #374259;
         text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
     }
-    .dogfeet{
-        position: absolute;
-        top: -4.700000000000003rem;
-        left: 50rem;
-        transform: rotate(45deg);
-        opacity: 9%;
-        width: 7rem;
-        height: 5rem;
-    }
+
+.dogGift {
+    position: absolute;
+    top: 12.5rem;
+    left: -10rem;
+    width: 21rem;
+}

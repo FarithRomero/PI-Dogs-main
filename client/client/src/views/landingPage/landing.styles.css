@@ -1,9 +1,17 @@
+
+.gif{
+  position: absolute;
+  top: 1.7rem;
+  left: 30.3rem;
+  width: 24rem;
+}
+
 .btn {
   position: absolute;
   top:20rem;
   left: 38rem;
   border: solid 1px #ffffff0d;
-  background-color: #374259;
+  background-color: #0bc148b0;
   margin-right: 1rem;
   width: 5.9rem;
   height: 2rem;
@@ -21,32 +29,58 @@
       color: #374259;
       text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
   }
-.title{
-    color: #374259;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.541);
-    font-family: 'League Spartan';
-    font-size: 5rem;
-    position: relative;
-    margin: 0px;
-    width: 27rem;
-    top: 10rem;
-    left: 28rem
-  }
-  .subtitle{
-    color: #000000;
-    font-family: 'Raleway';
-    font-size: 1rem;
-    position: relative;
-    top:10rem;
-    left: 34rem;
-  }
 
-  .image{
-    position: absolute;
-    top: 6rem;
-    left: 51rem;
-    transform: rotate(0deg);
-    opacity: 9%;
-    width: 6rem;
-    height: 4rem;
-  }
+.title{
+  color: #374259;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.541);
+  font-family: 'League Spartan';
+  font-size: 5rem;
+  position: relative;
+  margin: 0px;
+  width: 27rem;
+  top: 10rem;
+  left: 28rem
+}
+
+.subtitle{
+  color: #9ab29d;
+  font-family: 'Raleway';
+  font-size: 61%;
+  position: relative;
+  top: 10rem;
+  left: 31rem;
+}
+
+.image{
+  position: absolute;
+  top: 6rem;
+  left: 51rem;
+  transform: rotate(0deg);
+  opacity: 9%;
+  width: 6rem;
+  height: 4rem;
+}
+
+.logoLinkedin{
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  top: 35.5rem;
+  left: 82rem;
+}
+.githubLogo{
+  position: absolute;
+  width: 2rem;
+  height: 1.53rem;
+  top: 35.6rem;
+  left: 80rem;
+}
+
+.contact{
+  color: #000000;
+  font-family: 'Raleway';
+  font-size: 60%;
+  position: relative;
+  top: 28.6rem;
+  left: 75rem;
+}

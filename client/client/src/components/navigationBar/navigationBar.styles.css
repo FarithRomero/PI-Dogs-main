@@ -1,3 +1,12 @@
+.navContainer{
+    display: flex;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+    height: 39rem;
+    width: 171px;
+}   
+
 .nav{
     width: 94px;
     color: #DAFFFB;

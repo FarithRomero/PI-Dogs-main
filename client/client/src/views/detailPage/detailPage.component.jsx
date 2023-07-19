@@ -4,7 +4,8 @@ import { getByDetail} from '../../redux/actions.js';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import dogImage from '../../assets/pngtree-print-of-paw-dog-or-cat-png-image_4887169.png';
+
+import gitfDetail from '../../assets/200w.gif';
 
 function DetailPage() {
   const { id } = useParams();
@@ -17,7 +18,8 @@ function DetailPage() {
   
   return (
     <div>
-      <NavigationBar/>
+      <NavigationBar className="nav"/>
+      <img src={gitfDetail} alt="Imagen no se pudo cargar" className='giftDetail'/>     
       <img src={copyBreeds.imagen} alt="Imagen no se pudo cargar" className='dogPhoto'/>     
         <div className='textDescription'>
           <h1>{copyBreeds.nombre}</h1>
@@ -27,7 +29,6 @@ function DetailPage() {
           <h3>Peso: {copyBreeds.peso} Kg</h3>   
           <h3>Años de vida: {copyBreeds.años_de_vida} </h3>
         </div>
-        <img src={dogImage} alt="dog" className="dogfeet" />
     </div>
   );
 }

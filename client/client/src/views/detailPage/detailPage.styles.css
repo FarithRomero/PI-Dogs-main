@@ -4,10 +4,8 @@
     height: 71%;
     top: 7.1em;
     left: 12rem;
-    border-radius: 4px;
-    border-style: solid;
-    border-color: #F2D8D8;
-    box-shadow: 0 0 10px #F1C376;
+    border-radius: 6px;
+    box-shadow: 0 0 10px #18bd18a6;
 }
 
 .textDescription{
@@ -19,22 +17,27 @@
     width: 36.5rem;
     height: 11rem;
     text-align: left;
-    font-size: 56%;
+    font-size: 70%;
     font-family: 'Raleway';
-    color: #374259;
+    color: #215328;
     flex-direction: column;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-all;
 }
-    
 
-.dogfeet{
+.giftDetail{
     position: absolute;
-    top: 8rem;
-    left: 52rem;
-    transform: rotate(45deg);
-    opacity: 9%;
-    width: 25rem;
-    height: 21rem;
-  }
+    top: 26rem;
+    left: 69rem;
+}
+
+.nav{
+    width: 94px;
+    color: #DAFFFB;
+    background-color: #374259;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}

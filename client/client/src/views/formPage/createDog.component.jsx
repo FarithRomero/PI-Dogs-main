@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import NavigationBar from '../../components/navigationBar/navigationBar.component';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTemperaments, postNewBreed } from '../../redux/actions.js';
-import dogImage from '../../assets/pngtree-print-of-paw-dog-or-cat-png-image_4887169.png';
+import dogGC from '../../assets/ce8b1e76965389.5c7945b0cffef.gif';
 
 
 function CreateDog() {
@@ -101,7 +101,7 @@ function CreateDog() {
     <div>
       <NavigationBar />
       <div className='formContainer'>
-      <img src={dogImage} alt="dog" className="dogfeet" />
+      <img src={dogGC} alt="dog" className="dogGift" />
         <form onSubmit={handleSubmit}>
           <div>
             <label className='label'>Nombre: </label>
