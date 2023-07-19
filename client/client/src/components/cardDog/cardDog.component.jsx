@@ -1,11 +1,12 @@
 import './cardDog.styles.css';
 import { NavLink } from 'react-router-dom';
+import defaultImage from '../../assets/Dog.jpg';
 
 function CardDog({Id, Imagen, Nombre, Temperamentos, Peso}) {
   return (
     <div className='Card'>
-        <img className='dogImage' src={Imagen} alt={Id}/>
-   
+      { Imagen !== "" ? <img className='dogImage' src={Imagen} alt={"Ingresar imagen"}/> : 
+        <img className='dogImage' src={defaultImage} alt={"Ingresar imagen"}/> }       
       <NavLink to={`/home/${Id}`} className='link'>
        <h1>{Nombre}</h1>
       </NavLink>
