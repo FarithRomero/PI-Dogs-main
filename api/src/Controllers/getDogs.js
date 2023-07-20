@@ -70,6 +70,19 @@ const getDogsAndQuery = async(req, res) => {
         };
       razas.push(objApi);
       });  
+      
+      const getDBDogs = await Dog.findAll();//encontrar perro en la base de datos
+      getDBDogs.forEach(dog => { //Empuje lcada perro al array de razas
+        let objDB = {
+          id: dog.dataValues.id,
+          Imagen: "",
+          Nombre: dog.dataValues.nombre,       
+          Peso: dog.dataValues.peso,
+          Temperamentos: "quemado",
+          Origen: "DataBase",
+        };
+        razas.push(objDB);
+      })  
       res.status(200).send(razas);// retorne las razas
     } catch (error) {
       res.status(400).send(error.message);
@@ -82,26 +95,16 @@ module.exports ={
     getDogsAndQuery,
 } 
 
-// try {
-//   await axios(URL) //llame a la API
-//   .then(response => {
-//     const data = response.data;
-//     let razas = [];
-//       data.forEach(dog => { // cree a todas las razas dentro de un array
-//         let objApi = {
-//           id: dog.id,
-//           Imagen: dog.image.url,
-//           Nombre: dog.name,
-//           Temperamentos: dog.temperament,
-//           Peso: dog.weight.imperial,
-//           Origen: "Api"
-//         }
-//         razas.push(objApi)
-//       });  
-//     res.status(200).send(razas);// retorne las razas
-//   });  
-// } catch (error) {
-//   res.status(400).send(error.message);
-// };
-// };
-// };
+// const getDBDogs = await Dog.findAll();//encontrar perro en la base de datos
+// getDBDogs.forEach(dog => { //Empuje lcada perro al array de razas
+//   let objDB = {
+//     id: dog.dataValues.id,
+//     Imagen: "",
+//     Nombre: dog.dataValues.nombre,       
+//     Peso: dog.dataValues.peso,
+//     Temperamentos: "quemado",
+//     Años_de_vida: dog.dataValues.anios_de_vida,
+//     Origen: "DataBase",
+   
+//   };
+//   razas.push(objDB);
