@@ -25,7 +25,7 @@ const getDogById = async(req, res) => {
             altura: apiDog.height.metric,
             peso: apiDog.weight.imperial, 
             temperamentos: apiDog.temperament,
-            años_de_vida: apiDog.life_span,
+            anios_de_vida: apiDog.life_span,
         });
       };
     } catch (error) {
