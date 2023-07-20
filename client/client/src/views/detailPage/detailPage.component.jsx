@@ -1,3 +1,4 @@
+import defaultImage from '../../assets/Dog.jpg';
 import './detailPage.styles.css';
 import NavigationBar from '../../components/navigationBar/navigationBar.component';
 import { getByDetail} from '../../redux/actions.js';
@@ -19,8 +20,10 @@ function DetailPage() {
   return (
     <div>
       <NavigationBar className="nav"/>
-      <img src={gitfDetail} alt="Imagen no se pudo cargar" className='giftDetail'/>     
-      <img src={copyBreeds.imagen} alt="Imagen no se pudo cargar" className='dogPhoto'/>     
+      <img src={gitfDetail} alt="Imagen no se pudo cargar" className='giftDetail'/> 
+
+      { copyBreeds.imagen !== "" ? <img src={copyBreeds.imagen} alt="Imagen no se pudo cargar" className='dogPhoto'/>: 
+        <img className='dogPhoto' src={defaultImage} alt={"Ingresar imagen"}/> }          
         <div className='textDescription'>
           <h1>{copyBreeds.nombre}</h1>
           <h3>Temperamentos: {copyBreeds.temperamentos}</h3>

@@ -1,14 +1,14 @@
 
 .gif{
   position: absolute;
-  top: 1.7rem;
+  top: 4.7rem;
   left: 30.3rem;
   width: 24rem;
 }
 
 .btn {
   position: absolute;
-  top:20rem;
+  top:21rem;
   left: 38rem;
   border: solid 1px #ffffff0d;
   background-color: #0bc148b0;
@@ -38,7 +38,7 @@
   position: relative;
   margin: 0px;
   width: 27rem;
-  top: 10rem;
+  top: 13rem;
   left: 28rem
 }
 
@@ -47,13 +47,13 @@
   font-family: 'Raleway';
   font-size: 61%;
   position: relative;
-  top: 10rem;
+  top: 12.7rem;
   left: 31rem;
 }
 
 .image{
   position: absolute;
-  top: 6rem;
+  top: 11rem;
   left: 51rem;
   transform: rotate(0deg);
   opacity: 9%;
