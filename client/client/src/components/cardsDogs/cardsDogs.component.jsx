@@ -43,7 +43,8 @@ function CardsDogs() {
   }
 
   const nextHandler = () => {
-    if (currentPage === breeds.length) return;
+    let lastPage = Math.trunc(breeds.length/itemPerPage)
+    if (currentPage >= lastPage) return;
     setCurrentPage(prevPage => prevPage + 1);
   }
 
