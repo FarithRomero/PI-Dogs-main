@@ -57,6 +57,7 @@ const getDogsAndQuery = async(req, res) => {
     
   if(name === undefined){  //si no se hizo un llamado por query
     let razas = [];
+   
     try {
       const {data} = await axios(URL);  //traer todos los perrros de la API
       data.forEach(dog => { //Empuje cada perro al array de razas
@@ -70,19 +71,30 @@ const getDogsAndQuery = async(req, res) => {
         };
       razas.push(objApi);
       });  
+
+      //esta función trae los temperamentos de cada perro y los concatena recibiendo su id
+      async function getTemperamentosPerro(perroId) {
+        const temperamentosIds = (await Dogs_Temperaments.findAll({ where: { DogId: perroId } })).map((t) => t.TemperamentId);
+        const temperamentos = await Temperament.findAll({ where: { id: temperamentosIds } });
+        return temperamentos.map((t) => t.temperamento).join(", ");
+      }   
       
       const getDBDogs = await Dog.findAll();//encontrar perro en la base de datos
-      getDBDogs.forEach(dog => { //Empuje lcada perro al array de razas
-        let objDB = {
-          id: dog.dataValues.id,
-          Imagen: "",
-          Nombre: dog.dataValues.nombre,       
-          Peso: dog.dataValues.peso,
-          Temperamentos: "quemado",
-          Origen: "DataBase",
-        };
-        razas.push(objDB);
-      })  
+      
+      await Promise.all(
+        getDBDogs.map(async (dog) => {
+          const temperamentos = await getTemperamentosPerro(dog.dataValues.id);
+          let objDB = {
+            id: dog.dataValues.id,
+            Imagen: "",
+            Nombre: dog.dataValues.nombre,
+            Peso: dog.dataValues.peso,
+            Temperamentos: temperamentos,
+            Origen: "DataBase",
+          };
+          razas.push(objDB);
+        })
+      );
       res.status(200).send(razas);// retorne las razas
     } catch (error) {
       res.status(400).send(error.message);
@@ -94,17 +106,3 @@ const getDogsAndQuery = async(req, res) => {
 module.exports ={
     getDogsAndQuery,
 } 
-
-// const getDBDogs = await Dog.findAll();//encontrar perro en la base de datos
-// getDBDogs.forEach(dog => { //Empuje lcada perro al array de razas
-//   let objDB = {
-//     id: dog.dataValues.id,
-//     Imagen: "",
-//     Nombre: dog.dataValues.nombre,       
-//     Peso: dog.dataValues.peso,
-//     Temperamentos: "quemado",
-//     Años_de_vida: dog.dataValues.anios_de_vida,
-//     Origen: "DataBase",
-   
-//   };
-//   razas.push(objDB);
