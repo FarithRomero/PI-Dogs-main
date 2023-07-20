@@ -118,3 +118,28 @@
             color: #374259;
             text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
         }
+
+.button5 {
+    position: absolute;
+    left: 24rem;
+    top: -3.3rem;
+    border: solid 1px #ffffff0d;
+    background-color: #545B77;
+    margin-right: 1rem;
+    width: 8.899999999999999rem;
+    height: 2rem;
+    font-family: 'Raleway';
+    font-size: 60%;
+    color: white;
+    border-radius: 3%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    }
+
+    .button5:hover {
+        transform: scale(1.1);
+        background-color: #F2D8D8;
+        color: #374259;
+        text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
+    }
+    

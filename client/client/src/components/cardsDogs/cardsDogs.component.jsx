@@ -21,6 +21,12 @@ function CardsDogs() {
     activate: false, 
     selected: "", 
   });
+
+  const [originOrder, setOriginOrder] = useState({
+    activate: false, 
+    selected: "", 
+  });
+
   const itemPerPage = 8;
 
 
@@ -68,6 +74,17 @@ function CardsDogs() {
       });
       return;
     }
+    if (event.target.value === "Api" || event.target.value === "DataBase") {
+      setOriginOrder({
+        activate: true,
+        selected: event.target.value,
+      });
+      setSelectedTemperament({
+        activate: false,
+        selected: "",
+      });
+      return;
+    }
   };
   
   function handledTemperaments(event){
@@ -75,8 +92,9 @@ function CardsDogs() {
       activate: true, 
       selected: event.target.value, 
     })
+   
   };
-
+    
   if(selectedTemperament.activate === true){
      const filteredTemperamtes = breeds.filter(item => {return item.Temperamentos && item.Temperamentos.includes(selectedTemperament.selected)});
     currentBreeds = filteredTemperamtes.slice(startIndex, endIndex);
@@ -103,7 +121,12 @@ function CardsDogs() {
     });
     currentBreeds = weightOrdered.slice(startIndex, endIndex);
   };
-  
+      
+    if (originOrder.activate === true) {
+      const filteredByOrigin = breeds.filter((breed) => breed.Origen === originOrder.selected);
+      currentBreeds = filteredByOrigin.slice(startIndex, endIndex);
+    }
+
   return (
     <div>
       <div className='container'>
@@ -130,14 +153,22 @@ function CardsDogs() {
           <option value="Peso mayor">Peso mayor</option>
         </select>
         <select className='button2' name='temperamento'  value={selectedTemperament.temperamento} onChange={handledTemperaments}>
-              <option value=''>Filtrar temperamento</option>
-                { temperaments.map((temperament, index) => (          
-                  <option key={index} value={temperament}>{temperament}</option>
-                ))}
-            </select>
+          <option value=''>Filtrar temperamento</option>
+            { temperaments.map((temperament, index) => (          
+              <option key={index} value={temperament}>{temperament}</option>
+            ))}
+        </select>
+        <select className='button5' name='ordenar' value={originOrder} onChange={orderHandler}>
+          <option value="Default">Origen</option>
+          <option value="Api">Api</option>
+          <option value="DataBase">DataBase</option>
+        </select>
       </div>   
     </div>  
   );
 }
 
 export default CardsDogs;
+
+
+
