@@ -2,7 +2,7 @@ const axios = require('axios');
 require('../db.js');
 const { Dog, Temperament, Dogs_Temperaments } = require('../db.js');
 const {URL} = process.env;
-const capitalizeString = require('../utils/validations.js');
+const {capitalizeString, getTemperamentsByDog } = require('../utils/validations.js');
 
 const getDogsAndQuery = async(req, res) => { 
   const name = req.query.name;
@@ -72,18 +72,11 @@ const getDogsAndQuery = async(req, res) => {
       razas.push(objApi);
       });  
 
-      //esta función trae los temperamentos de cada perro y los concatena recibiendo su id
-      async function getTemperamentosPerro(perroId) {
-        const temperamentosIds = (await Dogs_Temperaments.findAll({ where: { DogId: perroId } })).map((t) => t.TemperamentId);
-        const temperamentos = await Temperament.findAll({ where: { id: temperamentosIds } });
-        return temperamentos.map((t) => t.temperamento).join(", ");
-      }   
-      
       const getDBDogs = await Dog.findAll();//encontrar perro en la base de datos
       
       await Promise.all(
         getDBDogs.map(async (dog) => {
-          const temperamentos = await getTemperamentosPerro(dog.dataValues.id);
+          const temperamentos = await getTemperamentsByDog(dog.dataValues.id, Dogs_Temperaments, Temperament);
           let objDB = {
             id: dog.dataValues.id,
             Imagen: "",

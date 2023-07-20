@@ -5,5 +5,14 @@ const capitalizeString = (str) => {
       .join(' ');
   };
 
-  module.exports = capitalizeString;
+ 
+  async function getTemperamentsByDog(perroId, Dogs_Temperaments, Temperament) {
+    const temperamentosIds = (await Dogs_Temperaments.findAll({ where: { DogId: perroId } })).map((t) => t.TemperamentId);
+    const temperamentos = await Temperament.findAll({ where: { id: temperamentosIds } });
+    return temperamentos.map((t) => t.temperamento).join(", ");
+  }   
 
+  module.exports = {
+    capitalizeString,
+    getTemperamentsByDog
+  }

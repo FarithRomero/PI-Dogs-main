@@ -1,7 +1,9 @@
 const axios = require('axios');
 require('../db.js');
-const { Dog } = require('../db.js');
+const { Dog, Temperament, Dogs_Temperaments  } = require('../db.js');
 const {URL} = process.env;
+const { getTemperamentsByDog } = require('../utils/validations.js');
+
 
 const getDogById = async(req, res) => {
     const {idRaza} = req.params; //destructuring del id recibido por params
@@ -12,7 +14,17 @@ const getDogById = async(req, res) => {
       if(apiDog === undefined){ //si no está en la api
         const dog = await Dog.findOne({ where: { id: idRaza } });//busquelo en la db
         if(dog.id === idRaza ){
-          return res.status(200).send(dog);// si es encontrado retorne el perro
+          const temperamentos = await getTemperamentsByDog(dog.dataValues.id, Dogs_Temperaments, Temperament);
+          return res.status(200).send(
+            {
+              id: dog.dataValues.id,
+              imagen: "",
+              nombre: dog.dataValues.nombre,
+              altura: dog.dataValues.altura,
+              peso: dog.dataValues.peso, 
+              temperamentos: temperamentos,
+              anios_de_vida: dog.dataValues.anios_de_vida,
+            });// si es encontrado retorne el perro
         }
         if(dog.id !== idRaza ){
           return res.status(400).send("Perro no encontrado en la API ni en la DataBase"); // si no fue encontrado envíe el mensaje
