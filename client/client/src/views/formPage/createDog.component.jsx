@@ -17,7 +17,7 @@ function CreateDog() {
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
 
   const [input, setInputState] = useState({
-    imagen: "",
+    imagen: "",   
     nombre: "",
     alturaMax: "",
     alturaMin: "",
@@ -35,19 +35,27 @@ function CreateDog() {
   });
 
   function validate(input) {
+    
     const errors = {};
-    if (!/^[a-zA-Z ]+$/.test(input.nombre)) {
-      errors.nombre = "Nombre inválido";
+    if (!/^[a-zA-Z ]+$/.test(input.nombre) || !input.nombre.trim()) {
+      errors.nombre = "Ingrese un nombre válido";
     }
     const alturaMax = parseInt(input.alturaMax);
     const alturaMin = parseInt(input.alturaMin);
+
     if (isNaN(alturaMax) || isNaN(alturaMin) || alturaMax <= alturaMin) {
-      errors.alturaMax = "Altura máxima debe ser mayor que altura mínima";
-      errors.alturaMin = "Altura mínima debe ser menor que altura máxima";
+      errors.alturaMax = "Debe ser un número mayor que altura mínima";
+      errors.alturaMin = "Debe ser un número menor que altura maxima";
     }
-    if (!/^\d+(\.\d+)?$/.test(input.peso)) {
-      errors.peso = "Peso inválido";
+
+    const pesoMax = parseInt(input.pesoMax);
+    const pesoMin = parseInt(input.pesoMin);
+
+    if (isNaN(pesoMax) || isNaN(pesoMin) || pesoMax <= pesoMin) {
+      errors.pesoMax = "Peso máximo incorrecto";
+      errors.pesoMin = "Peso mínimo incorrecto";
     }
+
     if (!/^\d+(\.\d+)?$/.test(input.anios_de_vida)) {
       errors.anios_de_vida = "Años inválidos";
     }
@@ -57,21 +65,21 @@ function CreateDog() {
 
   function handleSubmit(event) {
     event.preventDefault();
-
+    
     if (validate(input)) {
       const altura = `${input.alturaMin} - ${input.alturaMax}`;
+      const peso = `${input.pesoMin} - ${input.pesoMax}`;
       const firsTemperament = selectedTemperaments[0];
       const secondTemperament = selectedTemperaments[1];
 
       const submitData = {
         imagen: "",
-        nombre: input.nombre,
+        nombre: input.nombre.trim(),
         altura: altura,
-        peso: input.peso,
+        peso: peso,
         anios_de_vida: input.anios_de_vida,
         temperamentos: [firsTemperament, secondTemperament]
       };
-
       dispatch(postNewBreed(submitData));
     }
   }
@@ -93,9 +101,14 @@ function CreateDog() {
     event.preventDefault();
     const selection = event.target.value;
     if (selectedTemperaments.length < 2) {
-      setSelectedTemperaments([...selectedTemperaments, selection]);
+      if (!selectedTemperaments.includes(selection)) {
+        setSelectedTemperaments([...selectedTemperaments, selection]);
+      } else {
+        alert("Los temperamentos seleccionados no deben ser iguales");
+      }
     }
   }
+
 
   return (
     <div>
@@ -109,7 +122,7 @@ function CreateDog() {
             <span className='span'>{errorData.nombre}</span>
           </div>
           <div>
-            <label className='label'>Altura máxima: </label>
+            <label className='label'>Altura maxima: </label>
             <input className='input' name='alturaMax' value={input.alturaMax} placeholder='max' onChange={handleChange} />
             <span className='span'>{errorData.alturaMax}</span>
           </div>
@@ -119,9 +132,14 @@ function CreateDog() {
             <span className='span'>{errorData.alturaMin}</span>
           </div>
           <div>
-            <label className='label'>Peso: </label>
-            <input className='input' name='peso' value={input.peso} placeholder='Peso' onChange={handleChange} />
-            <span className='span'>{errorData.peso}</span>
+            <label className='label'>Peso maximo: </label>
+            <input className='input' name='pesoMax' value={input.pesoMax} placeholder='max' onChange={handleChange} />
+            <span className='span'>{errorData.pesoMax}</span>
+          </div>
+          <div>
+            <label className='label'>Peso mínimo: </label>
+            <input className='input' name='pesoMin' value={input.pesoMin} placeholder='min' onChange={handleChange} />
+            <span className='span'>{errorData.pesoMin}</span>
           </div>
           <div>
             <label className='label'>Años de vida: </label>
@@ -142,9 +160,9 @@ function CreateDog() {
                 <option key={index} value={temperament}>{temperament}</option>
               ))}
             </select>
-            {selectedTemperaments.length >= 1 ? <span className='span'> Has seleccionado: {`${selectedTemperaments[0]} - ${selectedTemperaments[1]}`}</span> : <span className='span'> Selecciona dos temperamentos</span>}
+            { selectedTemperaments.length >= 1 ? null : <span className='span'> Selecciona dos temperamentos diferentes</span> }
           </div>
-          {errorData.anios_de_vida ? null : <button className='submit' type='submit'>Crear raza</button>}
+          {errorData.anios_de_vida  ? null : <button className='submit' type='submit'>Crear raza</button>}
         </form>
       </div>
     </div>
