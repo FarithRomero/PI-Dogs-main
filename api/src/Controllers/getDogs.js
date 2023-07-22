@@ -1,7 +1,6 @@
-
-
 const axios = require('axios');
 require('../db.js');
+const { Op } = require('sequelize');
 const { Dog, Temperament, Dogs_Temperaments } = require('../db.js');
 const {URL} = process.env;
 const {capitalizeString, getTemperamentsByDog, searchDogsApi } = require('../utils/validations.js');
@@ -13,9 +12,14 @@ const getDogsAndQuery = async(req, res) => {
     const dogWanted = (capitalizeString(name)).trim();//transformelo a un formato valido
     try { 
       const {data} = await axios(URL);  
-      const findDb = await Dog.findOne({ where: { nombre: dogWanted } });//busquelo en la base de datos
-      const findApi = searchDogsApi(dogWanted, data);
+      const findDb = await Dog.findOne({ where: { nombre:  {[Op.like]: `%${dogWanted}%`} } });//busquelo en la base de datos
     
+      const findApi = searchDogsApi(dogWanted, data);
+
+      if(findDb === null && findApi[0] === undefined){
+        return res.status(400).send("La raza no existe en la base de datos");
+      };
+
       if(findDb){
         console.log("El perro se encuentra en la DataBase") 
         let filterTemperaments = (await Dogs_Temperaments.findAll({ where: { DogId: findDb.id } })).map((t) => t.TemperamentId);;
@@ -30,7 +34,8 @@ const getDogsAndQuery = async(req, res) => {
           temperamentos: temperamentos,
           Origen: "DataBase",
         }]);     
-      }
+      };
+
       if(findApi){ //si el perro está en la API traigalo
         console.log("El perro está en la API");
         return res.status(200).send(findApi.map((perro) => ({
@@ -43,7 +48,7 @@ const getDogsAndQuery = async(req, res) => {
           años_de_vida: perro.life_span,
           Origen: "Api",
         })));
-      };
+      };     
     } catch (error) {
       res.status(400).send("El perro no existe");
     }; 
@@ -51,7 +56,6 @@ const getDogsAndQuery = async(req, res) => {
     
   if(name === undefined){  //si no se hizo un llamado por query
     let razas = [];
-   
     try {
       const {data} = await axios(URL);  //traer todos los perrros de la API
       data.forEach(dog => { //Empuje cada perro al array de razas
@@ -89,7 +93,6 @@ const getDogsAndQuery = async(req, res) => {
   };
 };
 
-  
 module.exports ={
     getDogsAndQuery,
 }

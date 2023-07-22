@@ -4,10 +4,10 @@ import axios from "axios";
 export const getAllBreeds = () => {
     return async function(dispatch){
         try{
-            const response = await axios.get('http://localhost:3001/dogs');
-            return dispatch({type: GET_ALL_BREEDS, payload: response.data})
+            const response = await axios.get('http://localhost:3001/dogs');  
+            return dispatch({type: GET_ALL_BREEDS, payload: response.data});
         } catch(error){
-            alert(error.message)
+                alert("No fue posible cargar la información del servidor");
         }
     }
 };
@@ -20,7 +20,7 @@ export const postNewBreed = (dog) => {
             alert("Perro creado correctamente")
             return response;
         } catch (error) {
-            alert(error.message)
+            alert("Debe ingresar los datos de acuerdo a lo solicitado")
         }
     };
 };
@@ -41,7 +41,7 @@ export const getByName = (name) => {
             const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
             return dispatch({type: GET_BY_NAME, payload: response.data})
         } catch(error){
-            alert(error.message)
+            alert(error.response.data)
         }
     }
 };
@@ -53,7 +53,7 @@ export const getAllTemperaments = () => {
             const response = await axios.get('http://localhost:3001/temperaments');
             return dispatch({type: GET_ALL_TEMPERAMENTS, payload: response.data})
         } catch(error){
-            alert(error.message)
+            alert("No fue posible importar temperamentos")
         }
     }
 };
@@ -64,8 +64,8 @@ export const getByDetail = (Id) => {
         try{
             const response = await axios.get(`http://localhost:3001/dogs/${Id}`);
             return dispatch({type: GET_BY_DETAIL, payload: response.data})
-        } catch(error){
-            alert(error.message)
+         } catch(error){
+            alert("Error al intentar traer la información del servidor")
         }
     }
 };
