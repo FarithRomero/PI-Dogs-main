@@ -1,19 +1,20 @@
+
+
 const axios = require('axios');
 require('../db.js');
 const { Dog, Temperament, Dogs_Temperaments } = require('../db.js');
 const {URL} = process.env;
-const {capitalizeString, getTemperamentsByDog } = require('../utils/validations.js');
+const {capitalizeString, getTemperamentsByDog, searchDogsApi } = require('../utils/validations.js');
 
 const getDogsAndQuery = async(req, res) => { 
   const name = req.query.name;
 
   if(name !== undefined){//si recibe un perro por query
-    const dogWanted = capitalizeString(name);//transformelo a un formato valido
-
+    const dogWanted = (capitalizeString(name)).trim();//transformelo a un formato valido
     try { 
-      const {data} = await axios(URL);  // haga un llamado a la API
-      const findApi = data.find( perro => perro.name.toString() == dogWanted );// busque el perro  en la api
-      
+      const {data} = await axios(URL);  
+      const findApi = searchDogsApi(dogWanted, data);
+      //  console.log(findApi)
       if(findApi === undefined){  //si el perro NO está en la API
         
         console.log("El perro no se encuentra en la API")
@@ -39,16 +40,16 @@ const getDogsAndQuery = async(req, res) => {
       
       }else{ //si el perro está en la API traigalo
         console.log("El perro está en la API");
-        return res.status(200).send({
-          id: findApi.id,
-          imagen: findApi.image.url,
-          nombre: findApi.name,
-          altura: findApi.height.metric, 
-          peso: findApi.weight.imperial,
-          temperamentos: findApi.temperament,
-          años_de_vida: findApi.life_span,
-          Origen: "Api"
-        });
+        return res.status(200).send(findApi.map((perro) => ({
+          id: perro.id,
+          imagen: perro.image.url,
+          nombre: perro.name,
+          altura: perro.height.metric,
+          peso: perro.weight.imperial,
+          temperamentos: perro.temperament,
+          años_de_vida: perro.life_span,
+          Origen: "Api",
+        })));
       };
     } catch (error) {
       res.status(400).send("El perro no existe");
@@ -90,7 +91,7 @@ const getDogsAndQuery = async(req, res) => {
       );
       res.status(200).send(razas);// retorne las razas
     } catch (error) {
-      res.status(400).send(error.message);
+      res.status(400).send("No existe esta raza en la base de datos");
     };
   };
 };
@@ -98,4 +99,6 @@ const getDogsAndQuery = async(req, res) => {
   
 module.exports ={
     getDogsAndQuery,
-} 
+}
+
+

@@ -12,7 +12,17 @@ const capitalizeString = (str) => {
     return temperamentos.map((t) => t.temperamento).join(", ");
   }   
 
+  function searchDogsApi(raza, arrayrazas) {
+    raza = raza.toLowerCase().trim();
+    return arrayrazas.filter((perro) =>
+      perro.name.toLowerCase().startsWith(raza) ||
+      perro.name.toLowerCase().endsWith(raza)
+    );
+  };
+  
+  
   module.exports = {
     capitalizeString,
-    getTemperamentsByDog
+    getTemperamentsByDog,
+    searchDogsApi
   }

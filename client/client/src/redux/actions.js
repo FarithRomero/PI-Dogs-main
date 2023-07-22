@@ -25,11 +25,10 @@ export const postNewBreed = (dog) => {
     };
 };
 
-const clearState = () => {//PENDIENTE POR TERMINAR
+export const clearState = () => {//PENDIENTE POR TERMINAR
     return async function(dispatch){
         try{
-            const response = await axios.get('http://localhost:3001/dogs');
-            return dispatch({type: CLEAR_STATE, payload: response.data})
+            return dispatch({type: CLEAR_STATE})
         } catch(error){
             console.log(error.message)
         }

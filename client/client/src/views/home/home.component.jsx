@@ -4,14 +4,25 @@ import SearchBar from '../../components/searchBar/searchBar.component.jsx';
 import CardsDogs from '../../components/cardsDogs/cardsDogs.component.jsx';
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { getByName } from '../../redux/actions.js';
+import { getByName, clearState } from '../../redux/actions.js';
 import CardDog from '../../components/cardDog/cardDog.component.jsx';
 
 function Home() {
   const dispatch = useDispatch();
+
+  
   const { copyBreeds } = useSelector(state => state)
+  let cards = copyBreeds;
+
   const [searchValue, setSearchValue ] = useState("");
-  const [showCard, setShowCard] = useState(false)
+  const [showCard, setShowCard] = useState(false);
+  
+  useEffect(()=>{
+    setShowCard(false);
+    return () => {
+      dispatch(clearState())
+    }
+  }, [])
 
    function handlerEvent(event){
     event.preventDefault()
@@ -20,18 +31,13 @@ function Home() {
 
   function handlerSubmit(event){
     event.preventDefault();
-    dispatch(getByName(searchValue));   
- 
+    dispatch(getByName(searchValue));    
     setShowCard(true)
   }
 
   function handleGoBack() {
     setShowCard(false);
   }
-
-  useEffect(()=>{
-    setShowCard(false)
-  }, [])
 
   return (
     <div >   
@@ -41,16 +47,18 @@ function Home() {
       <div className='NavContainer'>
         <NavigationBar className='NavB'/>
       </div>
-      {showCard === true ? (
-        <div className='cardName'>
-          <CardDog      
-            key={copyBreeds.id} 
-            Id={copyBreeds.id} 
-            Imagen={copyBreeds.imagen} 
-            Nombre={copyBreeds.nombre} 
-            Temperamentos={copyBreeds.temperamentos} 
-            Peso={copyBreeds.peso} 
+      {showCard === true ?(
+        <div className='container2' >
+         {cards.map(breed => (
+          <CardDog className='cardName'
+            key={breed.id} 
+            Id={breed.id} 
+            Imagen={breed.imagen} 
+            Nombre={breed.nombre} 
+            Temperamentos={breed.temperamentos} 
+            Peso={breed.peso}
           />
+        ))}
           <button className='buttonBack' onClick={handleGoBack}>Volver</button>
         </div>
       ) : (
@@ -62,6 +70,3 @@ function Home() {
 }
 
 export default Home;
-
-
-

@@ -24,7 +24,12 @@ const reducer = (state=initialState, action) => {
         case CLEAR_STATE:
             return {
                 ...state,
-                breedDetail: {}
+                breeds: [],
+                copyBreeds: [],
+                breedDetail: {},  
+                temperaments: [],
+                orderBreeds: [],
+                responsePostBree: []
             }
         case GET_BY_NAME:
                 return {
