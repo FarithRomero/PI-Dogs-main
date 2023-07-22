@@ -13,32 +13,25 @@ const getDogsAndQuery = async(req, res) => {
     const dogWanted = (capitalizeString(name)).trim();//transformelo a un formato valido
     try { 
       const {data} = await axios(URL);  
+      const findDb = await Dog.findOne({ where: { nombre: dogWanted } });//busquelo en la base de datos
       const findApi = searchDogsApi(dogWanted, data);
-      //  console.log(findApi)
-      if(findApi === undefined){  //si el perro NO está en la API
-        
-        console.log("El perro no se encuentra en la API")
-        const findDb = await Dog.findOne({ where: { nombre: dogWanted } });//busquelo en la base de datos
+    
+      if(findDb){
+        console.log("El perro se encuentra en la DataBase") 
         let filterTemperaments = (await Dogs_Temperaments.findAll({ where: { DogId: findDb.id } })).map((t) => t.TemperamentId);;
         let temperamentOne = (await Temperament.findAll({ where: { id: filterTemperaments[0] } })).map((t) => t.temperamento);
         let temperamentTwo = (await Temperament.findAll({ where: { id: filterTemperaments[1] } })).map((t) => t.temperamento);
-        let temperamentos = (temperamentOne.concat(temperamentTwo)).join(", ");
-
-        if(findDb){
-          console.log("El perro se encuentra en la DataBase") 
-          return res.status(200).send({
-            id: findDb.id,
-            imagen: findDb.imagen,
-            nombre: findDb.nombre,       
-            peso: findDb.peso,
-            temperamentos: temperamentos,
-            Origen: "DataBase",
-          });
-        }else{
-          return res.status(400).send("El perro no se encuentra en la base de datos");
-        };
-      
-      }else{ //si el perro está en la API traigalo
+        let temperamentos = (temperamentOne.concat(temperamentTwo)).join(", ");  
+        return res.status(200).send([{
+          id: findDb.id,
+          imagen: findDb.imagen,
+          nombre: findDb.nombre,       
+          peso: findDb.peso,
+          temperamentos: temperamentos,
+          Origen: "DataBase",
+        }]);     
+      }
+      if(findApi){ //si el perro está en la API traigalo
         console.log("El perro está en la API");
         return res.status(200).send(findApi.map((perro) => ({
           id: perro.id,
