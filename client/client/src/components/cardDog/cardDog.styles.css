@@ -10,6 +10,7 @@
     cursor: pointer;
     transition: transform 0.5s ease-in-out;
     margin-bottom: 22px;
+    line-height: 3px;
 }
 
 .Card:hover {
@@ -43,6 +44,6 @@
     text-align:center;
     font-size: 38%;
     font-family: 'Raleway';
-    line-height: 0rem;
+    line-height: 7px;
     transition: transform 0.5s ease-in-out;
 }

@@ -20,9 +20,7 @@ function DetailPage() {
   return (
     <div>
       <NavigationBar className="nav"/>
-      
       <img src={gitfDetail} alt="Imagen no se pudo cargar" className='giftDetail'/> 
-
       { copyBreeds.imagen !== "" ? <img src={copyBreeds.imagen} alt="Imagen no se pudo cargar" className='dogPhoto'/>: 
         <img className='dogPhoto' src={defaultImage} alt={"Ingresar imagen"}/> }          
         <div className='textDescription'>

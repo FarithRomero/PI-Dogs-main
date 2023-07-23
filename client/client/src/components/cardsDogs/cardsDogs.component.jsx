@@ -23,8 +23,7 @@ function CardsDogs() {
   const itemsPerPage = 8;
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-    
+   
   useEffect(() => {
     dispatch(getAllBreeds());
   }, [dispatch]);
@@ -34,7 +33,7 @@ function CardsDogs() {
   }, [dispatch, alphabeticOrder]);
 
   useEffect(() => {
-       setCurrentBreeds(breeds.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
+    setCurrentBreeds(breeds.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
     setTotalBreeds(breeds.length);  
     
     if(filterSelected.filterType){
@@ -68,12 +67,9 @@ function CardsDogs() {
     }
   }, [orderSelected, alphabeticOrder, breeds, currentPage, weightOrder]);
 
-
-
   const prevHandler = () => {
     if (currentPage <= 0) return;
-    setCurrentPage(prevPage => prevPage - 1);
-    
+    setCurrentPage(prevPage => prevPage - 1);   
   }
 
   const nextHandler = () => {   
@@ -82,14 +78,8 @@ function CardsDogs() {
     setCurrentPage(prevPage => prevPage + 1);
   }
 
-  // useEffect(() => {
-  //   setCurrentPage();
-  // }, [prevHandler, nextHandler]);
-
- 
   const orderHandler = (event) => {
-    event.preventDefault();   
-    
+    event.preventDefault();      
     setOrderSelected(event.target.value);
     dispatch(orderCards(event.target.value));
   };
@@ -115,27 +105,27 @@ function CardsDogs() {
         ))}
       </div>
       <div>
-        <h4 className='PWraper'>Pagina: {currentPage + 1}</h4>
+        <h4 className='PWraper'>Pagina: {currentPage +1}</h4>
           <button onClick={prevHandler} className='button4'>Anterior</button>
           <button onClick={nextHandler} className='button1'>Siguiente</button>
         <select className='button3' name='ordenar' value={currentBreeds} onChange={orderHandler}>
-          <option value="Default">Ordenar Razas</option>
-          <option value="Ascendente">A - Z</option>
-          <option value="Descendente">Z - A</option>
-          <option value="Peso menor">Peso menor</option>
-          <option value="Peso mayor">Peso mayor</option>
+          <option value="Default">Ordenar</option>
+          <option value="Ascendente">Por orden alfabetico A - Z</option>
+          <option value="Descendente">Por orden alfabetico Z - A</option>
+          <option value="Peso menor">Por peso menor</option>
+          <option value="Peso mayor">Por peso mayor</option>
         </select>
         <select className='button2' name='temperamento'  value={filterSelected.value} onChange={filterHandler}>
-          <option value=''>Filtrar temperamento</option>
-            { temperaments.map((temperament, index) => (          
-              <option key={index} value={temperament}>{temperament}</option>
-            ))}
-        </select>
-        <select className='button5' name='origen' value={filterSelected.value} onChange={filterHandler}>
-          <option value="Default">Origen</option>
-          <option value="Api">Api</option>
-          <option value="DataBase">DataBase</option>
-        </select>
+            <option value=''>Filtrar temperamento</option>
+              { temperaments.map((temperament, index) => (          
+                <option key={index} value={temperament}>{temperament}</option>
+              ))}           
+          </select>
+          <select className='button5' name='origen' value={filterSelected.value} onChange={filterHandler}>
+            <option value="Default">Filtrar origen</option>
+            <option value="Api">Base de datos</option>
+            <option value="DataBase">Creado por usuario</option>
+          </select>
       </div>   
     </div>  
   );
