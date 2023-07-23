@@ -34,42 +34,62 @@ function CardsDogs() {
   }, [dispatch, alphabeticOrder]);
 
   useEffect(() => {
-    if (orderSelected === "Ascendente" || orderSelected === "Descendente") {
-      setCurrentBreeds(alphabeticOrder.slice(startIndex, endIndex));
-      setTotalBreeds(alphabeticOrder.length);
+       setCurrentBreeds(breeds.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
+    setTotalBreeds(breeds.length);  
+    
+    if(filterSelected.filterType){
+      if(filterSelected.filterType === "temperamento") {
+       setCurrentBreeds(temperamentsFilter.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
+       setTotalBreeds(temperamentsFilter.length);
+      } 
+      else if(filterSelected.filterType === "origen") {
+       setCurrentBreeds(originFilter.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
+       setTotalBreeds(originFilter.length);
+      } else{
+       setCurrentBreeds(breeds.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
+       setTotalBreeds(breeds.length);  
+     }
     } 
-    else if (orderSelected === "Peso menor" || orderSelected === "Peso mayor") {
-      setCurrentBreeds(weightOrder.slice(startIndex, endIndex));
-      setTotalBreeds(weightOrder.length);
+  }, [ breeds, currentPage, temperamentsFilter, originFilter]);
+
+  useEffect(() => {
+    if(orderSelected){
+      if (orderSelected === "Ascendente" || orderSelected === "Descendente") {
+        setCurrentBreeds(alphabeticOrder.slice(startIndex, endIndex));
+        setTotalBreeds(alphabeticOrder.length);
+      } 
+      else if (orderSelected === "Peso menor" || orderSelected === "Peso mayor") {
+        setCurrentBreeds(weightOrder.slice(startIndex, endIndex));
+        setTotalBreeds(weightOrder.length);
+      } else{
+        setCurrentBreeds(breeds.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
+        setTotalBreeds(breeds.length); 
+      }
     }
-    else if(filterSelected.filterType === "temperamento") {
-      setCurrentBreeds(temperamentsFilter.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
-      setTotalBreeds(temperamentsFilter.length);
-    } 
-    else if(filterSelected.filterType === "origen") {
-      setCurrentBreeds(originFilter.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
-      setTotalBreeds(originFilter.length);
-    } 
-    else{
-      setCurrentBreeds(breeds.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage));
-      setTotalBreeds(breeds.length);
-    }
-  }, [orderSelected, alphabeticOrder, breeds, currentPage, weightOrder, temperamentsFilter, originFilter]);
+  }, [orderSelected, alphabeticOrder, breeds, currentPage, weightOrder]);
+
 
 
   const prevHandler = () => {
     if (currentPage <= 0) return;
     setCurrentPage(prevPage => prevPage - 1);
+    
   }
 
   const nextHandler = () => {   
-    let lastPage = Math.trunc(totalBreeds/itemsPerPage)
+    let lastPage = Math.trunc(totalBreeds/itemsPerPage);
      if (currentPage >= lastPage) return;
     setCurrentPage(prevPage => prevPage + 1);
   }
 
+  // useEffect(() => {
+  //   setCurrentPage();
+  // }, [prevHandler, nextHandler]);
+
+ 
   const orderHandler = (event) => {
     event.preventDefault();   
+    
     setOrderSelected(event.target.value);
     dispatch(orderCards(event.target.value));
   };
@@ -95,9 +115,9 @@ function CardsDogs() {
         ))}
       </div>
       <div>
-        <h4 className='PWraper'>Pagina: {currentPage}</h4>
-        <button onClick={prevHandler} className='button4'>Prev</button>
-        <button onClick={nextHandler} className='button1'>Next</button>
+        <h4 className='PWraper'>Pagina: {currentPage + 1}</h4>
+          <button onClick={prevHandler} className='button4'>Anterior</button>
+          <button onClick={nextHandler} className='button1'>Siguiente</button>
         <select className='button3' name='ordenar' value={currentBreeds} onChange={orderHandler}>
           <option value="Default">Ordenar Razas</option>
           <option value="Ascendente">A - Z</option>
@@ -125,3 +145,20 @@ export default CardsDogs;
 
 
 
+// const resetPagination = () => {
+//   setCurrentPage(1);
+// };
+
+// const handleClick = (event) => {
+//   //? Cargar perros de nuevo
+//   event.preventDefault();
+//   resetPagination();
+//   dispatch(getDogs());
+//   window.location.reload()
+// };
+// <button
+// className={styles.reloadButton}
+// onClick={(event) => handleClick(event)}
+// >
+// Cargar perros de nuevo
+// </button>
