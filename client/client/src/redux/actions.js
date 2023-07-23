@@ -1,4 +1,4 @@
-import {GET_ALL_BREEDS, GET_ALL_TEMPERAMENTS, POST_NEWBREED, GET_BY_NAME, ORDER_BREEDS, CLEAR_STATE, GET_BY_DETAIL} from "./action-types.js";
+import {GET_ALL_BREEDS, GET_ALL_TEMPERAMENTS, POST_NEWBREED, GET_BY_NAME, ORDER_ALPHABETIC, CLEAR_STATE, GET_BY_DETAIL, ORDER_BY_WEIGHT, FILTER_TEMPERAMENT, FILTER_ORIGIN} from "./action-types.js";
 import axios from "axios";
 
 export const getAllBreeds = () => {
@@ -71,9 +71,21 @@ export const getByDetail = (Id) => {
 };
 
 export  const orderCards = (order) => {
-        return { type: ORDER_BREEDS, payload: order };
+    if (order === "Ascendente" || order === "Descendente") {
+        return { type: ORDER_ALPHABETIC, payload: order }
+    }else if(order === "Peso menor" || order === "Peso mayor"){
+        return { type: ORDER_BY_WEIGHT, payload: order }
+    }
 };
 
+export  const filterCards = (filterType, item) => {
+    if(filterType === "temperamento"){
+        return { type: FILTER_TEMPERAMENT, payload: item }
+    };
+    if(filterType === "origen"){
+        return { type: FILTER_ORIGIN, payload: item }
+    };
+};
 
 
 
