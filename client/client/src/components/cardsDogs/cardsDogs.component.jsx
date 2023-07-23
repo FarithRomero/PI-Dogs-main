@@ -49,7 +49,7 @@ function CardsDogs() {
        setTotalBreeds(breeds.length);  
      }
     } 
-  }, [ breeds, currentPage, temperamentsFilter, originFilter]);
+  }, [ breeds, currentPage, temperamentsFilter, originFilter, filterSelected.filterType ]);
 
   useEffect(() => {
     if(orderSelected){
@@ -65,7 +65,7 @@ function CardsDogs() {
         setTotalBreeds(breeds.length); 
       }
     }
-  }, [orderSelected, alphabeticOrder, breeds, currentPage, weightOrder]);
+  }, [orderSelected, alphabeticOrder, breeds, currentPage, weightOrder,startIndex, endIndex ]);
 
   const prevHandler = () => {
     if (currentPage <= 0) return;
@@ -76,7 +76,7 @@ function CardsDogs() {
     let lastPage = Math.trunc(totalBreeds/itemsPerPage);
      if (currentPage >= lastPage)
      {
-      return;
+      setCurrentPage(-1);
      } 
     setCurrentPage(prevPage => prevPage + 1);
   }

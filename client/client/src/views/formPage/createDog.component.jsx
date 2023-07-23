@@ -34,6 +34,8 @@ function CreateDog() {
     anios_de_vida: "",
   });
 
+  const [errorTemperament, setErrorTemperament] = useState(false);
+
   function validate(input) {
     
     const errors = {};
@@ -103,7 +105,9 @@ function CreateDog() {
     if (selectedTemperaments.length < 2) {
       if (!selectedTemperaments.includes(selection)) {
         setSelectedTemperaments([...selectedTemperaments, selection]);
+        setErrorTemperament(false);
       } else {
+        setErrorTemperament(true);
         alert("Los temperamentos seleccionados no deben ser iguales");
       }
     }
@@ -162,7 +166,7 @@ function CreateDog() {
             </select>
             { selectedTemperaments.length >= 1 ? null : <span className='span'> Selecciona dos temperamentos diferentes</span> }
           </div>
-          {errorData.anios_de_vida  ? null : <button className='submit' type='submit'>Crear raza</button>}
+          {errorData.anios_de_vida || errorData.nombre || errorData.alturaMax || errorData.alturaMin || errorData.peso ||errorTemperament === true ? null : <button className='submit' type='submit'>Crear raza</button>}
         </form>
       </div>
     </div>
