@@ -74,7 +74,10 @@ function CardsDogs() {
 
   const nextHandler = () => {   
     let lastPage = Math.trunc(totalBreeds/itemsPerPage);
-     if (currentPage >= lastPage) return;
+     if (currentPage >= lastPage)
+     {
+      return;
+     } 
     setCurrentPage(prevPage => prevPage + 1);
   }
 
@@ -82,13 +85,20 @@ function CardsDogs() {
     event.preventDefault();      
     setOrderSelected(event.target.value);
     dispatch(orderCards(event.target.value));
+    setCurrentPage(0);
   };
 
   const filterHandler = (event) => {
     event.preventDefault();  
     setFilterSelected({filterType: event.target.name, value: event.target.value});
     dispatch(filterCards(event.target.name, event.target.value));
+    setCurrentPage(0);
   };
+
+  const handlerReload = () =>{
+    window.location.reload();
+    setCurrentPage(0);
+  }
   
   return (
     <div>
@@ -105,7 +115,7 @@ function CardsDogs() {
         ))}
       </div>
       <div>
-        <h4 className='PWraper'>Pagina: {currentPage +1}</h4>
+        <h4 className='PWraper'>Pagina: {currentPage +1 }</h4>
           <button onClick={prevHandler} className='button4'>Anterior</button>
           <button onClick={nextHandler} className='button1'>Siguiente</button>
         <select className='button3' name='ordenar' value={currentBreeds} onChange={orderHandler}>
@@ -126,6 +136,7 @@ function CardsDogs() {
             <option value="Api">Base de datos</option>
             <option value="DataBase">Creado por usuario</option>
           </select>
+          <button onClick={handlerReload} className='button6'>Limpiar filtros</button>
       </div>   
     </div>  
   );
@@ -146,9 +157,3 @@ export default CardsDogs;
 //   dispatch(getDogs());
 //   window.location.reload()
 // };
-// <button
-// className={styles.reloadButton}
-// onClick={(event) => handleClick(event)}
-// >
-// Cargar perros de nuevo
-// </button>
