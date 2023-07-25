@@ -2,63 +2,65 @@ const axios = require('axios');
 require('../db.js');
 const { Op } = require('sequelize');
 const { Dog, Temperament, Dogs_Temperaments } = require('../db.js');
-const {URL} = process.env;
-const {capitalizeString, getTemperamentsByDog, searchDogsApi } = require('../utils/validations.js');
+const { URL } = process.env;
+const { capitalizeString, getTemperamentsByDog, searchDogsApi } = require('../utils/validations.js');
 
-const getDogsAndQuery = async(req, res) => { 
+const getDogsAndQuery = async (req, res) => {
   const name = req.query.name;
 
-  if(name !== undefined){//si recibe un perro por query
-    const dogWanted = (capitalizeString(name)).trim();//transformelo a un formato valido
-    try { 
-      const {data} = await axios(URL);  
-      const findDb = await Dog.findOne({ where: { nombre:  {[Op.like]: `%${dogWanted}%`} } });//busquelo en la base de datos
-    
+  if (name !== undefined) {
+    const dogWanted = (capitalizeString(name)).trim();
+    try {
+      const { data } = await axios(URL);
+      const findDb = await Dog.findOne({ where: { nombre: { [Op.like]: `%${dogWanted}%` } } });
       const findApi = searchDogsApi(dogWanted, data);
 
-      if(findDb === null && findApi[0] === undefined){
-        return res.status(400).send("La raza no existe en la base de datos");
+      if (findDb === null || !findDb) {
+        if (findApi[0] === undefined) {
+          return res.status(400).send("La raza no existe en la base de datos ni en la API");
+        } else {
+          console.log("El perro está en la API");
+          return res.status(200).send(findApi.map((perro) => ({
+            id: perro.id,
+            imagen: perro.image.url,
+            nombre: perro.name,
+            altura: perro.height.metric,
+            peso: perro.weight.imperial,
+            temperamentos: perro.temperament,
+            años_de_vida: perro.life_span,
+            Origen: "Api",
+          })));
+        }
       };
 
-      if(findDb){
-        console.log("El perro se encuentra en la DataBase") 
-        let filterTemperaments = (await Dogs_Temperaments.findAll({ where: { DogId: findDb.id } })).map((t) => t.TemperamentId);;
+      if (findDb) {
+        console.log("El perro se encuentra en la DataBase")
+        let filterTemperaments = (await Dogs_Temperaments.findAll({ where: { DogId: findDb.id } })).map((t) => t.TemperamentId);
+      
         let temperamentOne = (await Temperament.findAll({ where: { id: filterTemperaments[0] } })).map((t) => t.temperamento);
+      
         let temperamentTwo = (await Temperament.findAll({ where: { id: filterTemperaments[1] } })).map((t) => t.temperamento);
-        let temperamentos = (temperamentOne.concat(temperamentTwo)).join(", ");  
+        let temperamentos = (temperamentOne.concat(temperamentTwo)).join(", ");
         return res.status(200).send([{
           id: findDb.id,
           imagen: findDb.imagen,
-          nombre: findDb.nombre,       
+          nombre: findDb.nombre,
           peso: findDb.peso,
           temperamentos: temperamentos,
           Origen: "DataBase",
-        }]);     
+        }]);
       };
 
-      if(findApi){ //si el perro está en la API traigalo
-        console.log("El perro está en la API");
-        return res.status(200).send(findApi.map((perro) => ({
-          id: perro.id,
-          imagen: perro.image.url,
-          nombre: perro.name,
-          altura: perro.height.metric,
-          peso: perro.weight.imperial,
-          temperamentos: perro.temperament,
-          años_de_vida: perro.life_span,
-          Origen: "Api",
-        })));
-      };     
     } catch (error) {
       res.status(400).send("El perro no existe");
-    }; 
-  };  
-    
-  if(name === undefined){  //si no se hizo un llamado por query
+    };
+  };
+
+  if (name === undefined) {
     let razas = [];
     try {
-      const {data} = await axios(URL);  //traer todos los perrros de la API
-      data.forEach(dog => { //Empuje cada perro al array de razas
+      const { data } = await axios(URL);
+      data.forEach(dog => {
         let objApi = {
           id: dog.id,
           Imagen: dog.image.url,
@@ -67,11 +69,11 @@ const getDogsAndQuery = async(req, res) => {
           Peso: dog.weight.imperial,
           Origen: "Api"
         };
-      razas.push(objApi);
-      });  
+        razas.push(objApi);
+      });
 
-      const getDBDogs = await Dog.findAll();//encontrar perro en la base de datos
-      
+      const getDBDogs = await Dog.findAll();
+
       await Promise.all(
         getDBDogs.map(async (dog) => {
           const temperamentos = await getTemperamentsByDog(dog.dataValues.id, Dogs_Temperaments, Temperament);
@@ -86,15 +88,13 @@ const getDogsAndQuery = async(req, res) => {
           razas.push(objDB);
         })
       );
-      res.status(200).send(razas);// retorne las razas
+      res.status(200).send(razas);
     } catch (error) {
       res.status(400).send("No existe esta raza en la base de datos");
     };
   };
 };
 
-module.exports ={
-    getDogsAndQuery,
+module.exports = {
+  getDogsAndQuery,
 }
-
-

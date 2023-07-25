@@ -9,20 +9,18 @@ import CardDog from '../../components/cardDog/cardDog.component.jsx';
 
 function Home() {
   const dispatch = useDispatch();
-
-  
-  const { copyBreeds } = useSelector(state => state)
-  let cards = copyBreeds;
+  const copyBreeds = useSelector(state => state.copyBreeds);
 
   const [searchValue, setSearchValue ] = useState("");
   const [showCard, setShowCard] = useState(false);
   
+
   useEffect(()=>{
     setShowCard(false);
     return () => {
       dispatch(clearState())
     }
-  }, [])
+  }, [dispatch])
 
    function handlerEvent(event){
     event.preventDefault()
@@ -49,7 +47,7 @@ function Home() {
       </div>
       {showCard === true ?(
         <div className='container2' >
-         {cards.map(breed => (
+         {copyBreeds.map(breed => (
           <CardDog className='cardName'
             key={breed.id} 
             Id={breed.id} 

@@ -1,32 +1,36 @@
-function validate(input) {
-    const errors = {};
+function orderData(orderType, array) {
+    let response;
   
-    if (!/^[a-zA-Z ]+$/.test(input.nombre) || !input.nombre.trim()) {
-      errors.nombre = "Nombre inválido";
+    switch (orderType) {
+      case "Ascendente":
+        response = array.slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+        break;
+      case "Descendente":
+        response = array.slice().sort((a, b) => b.nombre.localeCompare(a.nombre));
+        break;
+      case "Peso menor":
+        response = array.slice().sort((a, b) => {
+          const pesoA = parseInt(a.peso.split(" - ")[0]);
+          const pesoB = parseInt(b.peso.split(" - ")[0]);
+          return pesoA - pesoB;
+        });
+        break;
+      case "Peso mayor":
+        response = array.slice().sort((a, b) => {
+          const pesoA = parseInt(a.peso.split(" - ")[0]);
+          const pesoB = parseInt(b.peso.split(" - ")[0]);
+          return pesoB - pesoA;
+        }); 
+        break;
+      default:
+        alert("Tipo de orden inválido.");
+        break;
     }
   
-    const alturaMax = parseInt(input.alturaMax);
-    const alturaMin = parseInt(input.alturaMin);
-  
-    if (isNaN(alturaMax) || isNaN(alturaMin) || alturaMax <= alturaMin) {
-      errors.alturaMax = "Altura máxima debe ser mayor que altura mínima";
-      errors.alturaMin = "Altura mínima debe ser menor que altura máxima";
-    }
-  
-    const pesoMax = parseInt(input.pesoMax);
-    const pesoMin = parseInt(input.pesoMin);
-  
-    if (isNaN(pesoMax) || isNaN(pesoMin) || pesoMax <= pesoMin) {
-      errors.pesoMax = "Peso máximo debe ser mayor que peso mínimo";
-      errors.pesoMin = "Peso mínimo debe ser menor que peso máximo";
-    }
-  
-    if (!/^\d+(\.\d+)?$/.test(input.anios_de_vida)) {
-      errors.anios_de_vida = "Años inválidos";
-    }
-  
-    return errors;
+    return response;
   }
   
-  export default validate;
+ module.exports={
+  orderData
+ };
   
