@@ -1,5 +1,6 @@
 import defaultImage from '../../assets/Dog.jpg';
 import './detailPage.styles.css';
+import { NavLink } from 'react-router-dom';
 import NavigationBar from '../../components/navigationBar/navigationBar.component';
 import { getByDetail} from '../../redux/actions.js';
 import { useSelector, useDispatch } from "react-redux";
@@ -31,6 +32,9 @@ function DetailPage() {
           <h3>Peso: {copyBreeds.peso} Kg</h3>   
           <h3>Años de vida: {copyBreeds.anios_de_vida} </h3>
         </div>
+      <NavLink to="/home">
+        <button className='buttonBack2'>Volver</button>
+      </NavLink>
     </div>
   );
 }

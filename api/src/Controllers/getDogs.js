@@ -50,7 +50,6 @@ const getDogsAndQuery = async (req, res) => {
           Origen: "DataBase",
         }]);
       };
-
     } catch (error) {
       res.status(400).send("El perro no existe");
     };

@@ -41,7 +41,7 @@
     }
     .container2{
         position: absolute;
-        left: 8rem;
+        left: 6rem;
         top: 5rem;
         height: -1px;
         grid-template-columns: 14rem 14rem 14rem 10rem;

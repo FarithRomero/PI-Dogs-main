@@ -1,5 +1,6 @@
 import './createDog.styles.css';
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import NavigationBar from '../../components/navigationBar/navigationBar.component';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTemperaments, postNewBreed } from '../../redux/actions.js';
@@ -169,6 +170,9 @@ function CreateDog() {
           {errorData.anios_de_vida || errorData.nombre || errorData.alturaMax || errorData.alturaMin || errorData.peso ||errorTemperament === true ? null : <button className='submit' type='submit'>Crear raza</button>}
         </form>
       </div>
+      <NavLink to="/home">
+        <button className='buttonBack2'>Volver</button>
+      </NavLink>
     </div>
   );
 }

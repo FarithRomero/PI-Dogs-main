@@ -64,3 +64,27 @@
     left: -10rem;
     width: 21rem;
 }
+
+.buttonBack2{
+    position: fixed;
+    top: 15.6rem;
+    left: 0rem;
+    border: solid 1px #ffffff0d;
+    background-color: #374259;
+    margin-right: 1rem;
+    width: 5.9rem;
+    height: 2rem;
+    font-family: 'Raleway';
+    font-size: 72%;
+    color: white;
+    border-radius: 1%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    }
+
+    .buttonBack2:hover {
+        transform: scale(1.1);
+        background-color: #F2D8D8;
+        color: #374259;
+        text-shadow: 2px 2px 4px rgba(247, 243, 243, 0.541);
+    }
